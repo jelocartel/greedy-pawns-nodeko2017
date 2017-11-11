@@ -10,19 +10,25 @@ export class FloodFill {
     this.fill(scene, x, y-1, toChange, newValue);
   }
 
-  compute_scene(scene) {
+  compute_scene(scene, userID) {
     // this temparray should be just part of the scene,
     // calculated from the
     const tempArray = JSON.parse(JSON.stringify(scene));
     tempArray.forEach(row => {
-      row.push(1);
-      row.unshift(1);
+      row.push(0);
+      row.unshift(0);
     });
 
-    tempArray.push(new Array(scene.length + 2).fill(1));
-    tempArray.unshift(new Array(scene.length + 2).fill(1));
+    tempArray.push(new Array(scene.length + 2).fill(0));
+    tempArray.unshift(new Array(scene.length + 2).fill(0));
 
-    this.fill(tempArray, 0, 0, 1, 2);
+    tempArray = tempArray.map(arr => {
+      return arr.map(el => {
+        return el !== userID ? 0 : userID;
+      })
+    });
+
+    this.fill(tempArray, 0, 0, 0, userID + 1);
 
     tempArray.pop();
     tempArray.shift();
@@ -33,7 +39,7 @@ export class FloodFill {
 
     return tempArray.map(arr => {
       return arr.map(el => {
-        return el === 1 ? 0 : el === 2 ? 1 : el;
+        return el === userID + 1 ? 0 : (el === 0 || el === userID) ? 1 : el;
       })
     });
   }
