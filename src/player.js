@@ -41,11 +41,25 @@ export class Player {
       min_x: Infinity
     };
 
-    this.entity = new Box();
-    this.entity.add_component(new Move({
-      keyboard_controlled: true,
-      rotate_speed: 0
-    }));
+    console.log(options.shape[0]);
+    this.entity = new Entity({
+      components: [
+        new Transform({
+          scale: [0.4, 0.4, 0.4]
+        }),
+        new Render({
+          vertices: options.shape[0].vertices,
+          indices: options.shape[0].indices,
+          normals: options.shape[0].normals,
+          material: this.world.material,
+          color: this.base_color
+        }),
+        new Move({
+          keyboard_controlled: true,
+          rotate_speed: 0
+        })
+      ]
+    });
 
     this.components = {
       transform: this.entity.get_component(Transform),
@@ -53,8 +67,6 @@ export class Player {
       move: this.entity.get_component(Move)
     };
 
-    this.components.render.material = this.world.material;
-    this.components.render.color = this.base_color;
     this.components.transform.position = [
       this.options.position.x,
       0,
@@ -117,7 +129,7 @@ export class Player {
 
     this.light_transform.position = [
       position[0],
-      position[1],
+      position[1] - 0.3,
       position[2]
     ];
 
