@@ -10,3 +10,17 @@ export function lighter_color(color, lum = -0.2) {
     return Math.round(Math.min(Math.max(0, cl + (cl * lum)), 255));
   });
 }
+
+export function chunk_array(array, min_x, min_y, max_x, max_y) {
+  return array.slice(min_y, max_y+1).map(row => row.slice(min_x, max_x+1));
+}
+
+const a = [];
+const size = 5;
+let count = 0;
+for (let x = 0; x < size; x++) {
+  a[x] = [];
+  for (let y = 0; y < size; y++) {
+    a[x][y] = count++;
+  }
+}
