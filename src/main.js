@@ -4,7 +4,15 @@ import { Player } from './player';
 
 const world = new World();
 const board = new Board({world});
-const player = window.player = new Player({world, board});
+let player_spawning_position = board.get_random_empty_field();
+
+const player = window.player = new Player({
+  world,
+  board,
+  options: {
+    position: player_spawning_position
+  }
+});
 
 world.game.on('tick', (e) => {
   player.on_tick();

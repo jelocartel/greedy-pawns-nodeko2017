@@ -6,9 +6,20 @@ import { Entity } from 'cervus/core';
 import { lighter_color } from './utils';
 import { hex_to_rgb } from 'cervus/utils';
 
+const default_options = {
+  position: {
+    x: 0,
+    y: 3
+  }
+};
+
 export class Player {
   constructor(options = {}) {
-    this.base_color = '00FF00';
+    this.options = {};
+
+    Object.assign(this.options, default_options, options.options);
+
+    this.base_color = '0000FF';
     this.colors = [
       hex_to_rgb(this.base_color),
       lighter_color(hex_to_rgb(this.base_color), -0.6)
@@ -43,7 +54,23 @@ export class Player {
 
     this.components.render.material = this.world.material;
     this.components.render.color = this.base_color;
-    this.components.transform.position = [0, 0, 3];
+    this.components.transform.position = [
+      this.options.position.x,
+      0,
+      this.options.position.y
+    ];
+
+    this.board.mark_user_starting_filed(
+      Math.round(((CONFIG.board.size)/2) - this.options.position.x),
+      Math.round(((CONFIG.board.size)/2) - this.options.position.y),
+      this.colors
+    );
+    this.world.camera_transform.position = [
+      this.options.position.x,
+      this.world.camera_transform.position[1],
+      this.options.position.y - 10
+    ];
+
     this.world.game.add(this.entity);
 
     this.light = new Entity({

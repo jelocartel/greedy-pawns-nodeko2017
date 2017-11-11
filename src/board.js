@@ -1,5 +1,5 @@
 import { CONFIG } from './config';
-import { FloodFill } from './flood_fill';
+import { FloodFill } from './flood-fill';
 
 import { Plane } from 'cervus/shapes';
 import { Render, Transform } from 'cervus/components';
@@ -110,7 +110,8 @@ export class Board {
       chunk_array(this.array, boundaries)
     );
 
-    console.log('chunk', chunk_array(this.array, boundaries));
+    // console.log('chunk', chunk_array(this.array, boundaries));
+    // console.log('new array', new_board_array);
     new_board_array.forEach((arr, x) => {
       arr.forEach((value, y) => {
         const final_x = boundaries.min_x + x;
@@ -126,5 +127,28 @@ export class Board {
     });
 
     this.apply_texture();
+  }
+
+  mark_user_starting_filed(x, y, colors) {
+    let half_size = ~~(board_options.players_starting_field_size/2);
+    for (let i = x - half_size; i < x + half_size + 1; i++) {
+      for (let j = y - half_size; j < y + half_size + 1; j++) {
+        this.color_square(i, j, colors, false);
+      }
+    }
+    this.apply_texture();
+  }
+
+  get_random_empty_field() {
+    let x = ~~(Math.random() * board_options.size);
+    let y = ~~(Math.random() * board_options.size);
+    while (this.array[x][y] !== 1) {
+      x = ~~(Math.random() * board_options.size);
+      y = ~~(Math.random() * board_options.size);
+    }
+
+    x -= CONFIG.board.size/2;
+    y -= CONFIG.board.size/2;
+    return {x, y};
   }
 }

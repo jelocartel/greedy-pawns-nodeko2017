@@ -15,6 +15,8 @@ export const CONFIG = {
       hex_to_rgb('#CCCCCC')
     ],
     size: 100,
-    unit_size: 50
+    unit_size: 50,
+
+    players_starting_field_size: 3
   }
 };
