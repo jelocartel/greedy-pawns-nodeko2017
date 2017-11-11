@@ -72,7 +72,7 @@ class MyRenderer extends Renderer {
             board: this.cervus.board,
             options: {
               position: player_spawning_position,
-              base_color: '#'+Math.floor(Math.random()*16777215).toString(16)
+              base_color: obj.color
             }
           });
 
