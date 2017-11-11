@@ -1,10 +1,9 @@
-import { CONFIG } from './config';
-
 import { Render, Transform, Move } from 'cervus/components';
 import { Box } from 'cervus/shapes';
 
 export class Player {
-  constructor() {
+  constructor(options = {}) {
+    this.world = options.world;
     this.lastX = 0;
     this.lastY = 0;
     this.last_colored = '';
@@ -21,10 +20,10 @@ export class Player {
       move: this.entity.get_component(Move)
     };
 
-    this.components.render.material = CONFIG.material;
+    this.components.render.material = this.world.material;
     this.components.render.color = 'ff00ff';
     this.components.transform.position = [0, 0, 3];
-    CONFIG.game.add(this.entity);
+    this.world.game.add(this.entity);
   }
 
   on_tick() {

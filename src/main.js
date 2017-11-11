@@ -1,11 +1,11 @@
-import { GameSetup } from './game-setup';
+import { World } from './world';
 import { Board } from './board';
 import { Player } from './player';
 
-const game = GameSetup();
-const board = new Board();
-const player = new Player();
+const world = new World();
+const board = new Board({world});
+const player = new Player({world});
 
-game.on('tick', () => {
+world.game.on('tick', () => {
   player.on_tick();
 });

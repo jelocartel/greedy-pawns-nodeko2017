@@ -2,11 +2,14 @@ import { CONFIG } from './config';
 import { Plane } from 'cervus/shapes';
 import { Render, Transform } from 'cervus/components';
 import { PhongMaterial } from 'cervus/materials';
+import { World } from './world';
 
 const board_options = CONFIG.board;
 
 export class Board {
-  constructor() {
+  constructor(options = {}) {
+    this.world = options.world;
+
     this.entity = new Plane();
     this.components = {
       transform: this.entity.get_component(Transform),
@@ -30,7 +33,7 @@ export class Board {
       this.texture.style.height = '250px';
     }
 
-    this.game = CONFIG.game;
+    this.game = this.world.game;
 
     this.components.transform.scale = [
       board_options.size * board_options.scale,
