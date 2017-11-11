@@ -35,6 +35,12 @@ class MyRenderer extends Renderer {
                 0,
                 this.gameEngine.world.objects[objId].position.y
               ];
+
+              this.sprites[objId].light_transform.position = [
+                this.gameEngine.world.objects[objId].position.x,
+                - 0.3,
+                this.gameEngine.world.objects[objId].position.y
+              ];
             }
         }
 
@@ -43,6 +49,12 @@ class MyRenderer extends Renderer {
             this.player_pawn.components.transform.position[0],
             this.cervus.world.camera_transform.position[1],
             this.player_pawn.components.transform.position[2] - 10
+          ];
+
+          this.cervus.world.light_transform.position = [
+            this.cervus.world.camera_transform.position[0],
+            this.cervus.world.camera_transform.position[1] - 7,
+            this.cervus.world.camera_transform.position[2],
           ];
         }
     }
