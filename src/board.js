@@ -81,7 +81,7 @@ export class Board {
     this.apply_texture();
   }
 
-  color_square(x, y, colors, screen_to_array_coords = true) {
+  color_square(x, y, colors, screen_to_array_coords = true, redraw = true) {
     if (screen_to_array_coords) {
       x = ((board_options.size)/2) - x;
       y = ((board_options.size)/2) - y;
@@ -95,7 +95,9 @@ export class Board {
 
     this.ctx.putImageData(this.image_data, 0, 0);
 
-    this.apply_texture();
+    if (redraw) {
+      this.apply_texture();
+    }
   }
 
 
@@ -117,9 +119,11 @@ export class Board {
         }
 
         if (value === 0) {
-          this.color_square(x, y, colors, false);
+          this.color_square(x, y, colors, false, false);
         }
       });
-    })
+    });
+
+    this.apply_texture();
   }
 }
