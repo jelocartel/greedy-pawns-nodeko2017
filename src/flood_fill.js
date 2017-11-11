@@ -1,16 +1,16 @@
-export class Algorithm {
-  floodFill(scene, x, y, toChange, newValue) {
+export class FloodFill {
+  fill(scene, x, y, toChange, newValue) {
     if (!scene[x] || !scene[x][y] || scene[x][y] !== toChange) {
       return;
     }
     scene[x][y] = newValue;
-    this.floodFill(scene, x+1, y, toChange, newValue);
-    this.floodFill(scene, x-1, y, toChange, newValue);
-    this.floodFill(scene, x, y+1, toChange, newValue);
-    this.floodFill(scene, x, y-1, toChange, newValue);
+    this.fill(scene, x+1, y, toChange, newValue);
+    this.fill(scene, x-1, y, toChange, newValue);
+    this.fill(scene, x, y+1, toChange, newValue);
+    this.fill(scene, x, y-1, toChange, newValue);
   }
 
-  fillMyCells(scene) {
+  compute_scene(scene) {
     // this temparray should be just part of the scene,
     // calculated from the
     const tempArray = JSON.parse(JSON.stringify(scene));
@@ -22,7 +22,7 @@ export class Algorithm {
     tempArray.push(new Array(scene.length + 2).fill(1));
     tempArray.unshift(new Array(scene[0].length + 2).fill(1));
 
-    this.floodFill(tempArray, 0, 0, 1, 2);
+    this.fill(tempArray, 0, 0, 1, 2);
 
     tempArray.pop();
     tempArray.shift();
