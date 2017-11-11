@@ -41,10 +41,6 @@ class MyRenderer extends Renderer {
     addSprite(obj, objName) {
         if (objName === 'activeplayer') objName += obj.id;
 
-        // let element = window.cervus.players.find(player => {
-        //   return player.name = objName;
-        // });
-
         const element = this.sprites[obj.id];
 
         if (!element) {
