@@ -14,7 +14,7 @@ world.game.on('tick', (e) => {
     world.camera_transform.position[2],
   ];
 
-  if ((~~(e/200)*100)%1000 === 0) {
-    player.end_round_calculations();
-  }
+  // if ((~~(e/200)*100)%1000 === 0) {
+  //   player.end_round_calculations();
+  // }
 });

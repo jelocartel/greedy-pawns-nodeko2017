@@ -1,3 +1,5 @@
+import { CONFIG } from './config';
+
 import { Render, Transform, Move, Light } from 'cervus/components';
 import { Box } from 'cervus/shapes';
 import { Entity } from 'cervus/core';
@@ -19,6 +21,13 @@ export class Player {
     this.lastX = 0;
     this.lastY = 0;
     this.last_colored = '';
+
+    this.boundaries = {
+      max_y: 0,
+      min_y: Infinity,
+      max_x: 0,
+      min_x: Infinity
+    };
 
     this.entity = new Box();
     this.entity.add_component(new Move({
@@ -52,7 +61,7 @@ export class Player {
   }
 
   end_round_calculations() {
-    this.board.redraw_board(this.colors);
+    this.board.redraw_board(this.colors, this.boundaries);
   }
 
   on_tick() {
@@ -84,9 +93,17 @@ export class Player {
       position[2]
     ];
 
-    const rounded_x = Math.round(position[0]);
-    const rounded_y = Math.round(position[2]);
+    const rounded_x = Math.round(((CONFIG.board.size)/2) - position[0]);
+    const rounded_y = Math.round(((CONFIG.board.size)/2) - position[2]);
     if (this.last_colored !== rounded_x + '-' + rounded_y) {
+
+      this.boundaries = {
+        max_x: Math.max(rounded_x, this.boundaries.max_x),
+        min_x: Math.min(rounded_x, this.boundaries.min_x),
+        max_y: Math.max(rounded_y, this.boundaries.max_y),
+        min_y: Math.min(rounded_y, this.boundaries.min_y)
+      };
+
       this.last_colored = rounded_x + '-' + rounded_y;
       this.board.color_square(
         rounded_x,

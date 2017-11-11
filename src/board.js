@@ -6,7 +6,7 @@ import { Render, Transform } from 'cervus/components';
 import { PhongMaterial } from 'cervus/materials';
 
 
-import { color_to_buffer } from './utils';
+import { color_to_buffer, chunk_array } from './utils';
 
 const board_options = CONFIG.board;
 
@@ -81,12 +81,7 @@ export class Board {
     this.apply_texture();
   }
 
-  color_square(x, y, colors, screen_to_array_coords = true, redraw = true) {
-    if (screen_to_array_coords) {
-      x = ((board_options.size)/2) - x;
-      y = ((board_options.size)/2) - y;
-    }
-
+  color_square(x, y, colors, redraw = true) {
     this.array[x][y] = 0;
 
     const color = colors[Math.abs((x + y)%2)];
@@ -110,16 +105,22 @@ export class Board {
     });
   }
 
-  redraw_board(colors) {
-    const new_board_array = this.flood_fill.compute_scene(this.array);
+  redraw_board(colors, boundaries) {
+    const new_board_array = this.flood_fill.compute_scene(
+      chunk_array(this.array, boundaries)
+    );
+
+    console.log('chunk', chunk_array(this.array, boundaries));
     new_board_array.forEach((arr, x) => {
       arr.forEach((value, y) => {
-        if (value === this.array[x][y]) {
+        const final_x = boundaries.min_x + x;
+        const final_y = boundaries.min_y + y;
+        if (value === this.array[final_x][final_y]) {
           return;
         }
 
         if (value === 0) {
-          this.color_square(x, y, colors, false, false);
+          this.color_square(final_x, final_y, colors, false);
         }
       });
     });
