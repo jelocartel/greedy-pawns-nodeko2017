@@ -4,7 +4,6 @@ import { Player } from './player';
 import { model_loader } from 'cervus/core';
 
 model_loader('models/pawn.json').then((data) => {
-  console.log(data);
   const world = new World();
   const board = new Board({world});
   let player_spawning_position = board.get_random_empty_field();

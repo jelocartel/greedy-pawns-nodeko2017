@@ -29,10 +29,11 @@
   "scripts": {
     "buildlocal": "./node_modules/rollup/bin/rollup -c",
     "dev": "./node_modules/rollup/bin/rollup -c -w",
-    "start": "node main.js",
-    "postinstall": "browserify src/client/clientMain.js -i nodejs-physijs -o dist/bundle.js ",
-    "build": "browserify src/client/clientMain.js -i nodejs-physijs -o dist/bundle.js ",
-    "watchify": "watchify src/client/clientMain.js -i nodejs-physijs -o dist/bundle.js -v -d"
+    "start": "node lance/main.js",
+    "postinstall": "browserify lance/client/clientMain.js -i nodejs-physijs -o dist/bundle.js ",
+    "build": "browserify lance/client/clientMain.js -i nodejs-physijs -o dist/bundle.js ",
+    "watchify": "watchify lance/client/clientMain.js -i nodejs-physijs -o dist/bundle.js -v -d",
+    "clear": "rm -rf *.trace"
   },
   "browserify": {
     "transform": [

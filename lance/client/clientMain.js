@@ -1,6 +1,6 @@
 const qsOptions = require('query-string').parse(location.search);
-const MyClientEngine = require('../client/MyClientEngine');
-const MyGameEngine = require('../../common/MyGameEngine');
+const MyClientEngine = require('./MyClientEngine');
+const MyGameEngine = require('../common/MyGameEngine');
 const SimplePhysicsEngine = require('lance-gg').physics.SimplePhysicsEngine;
 
 
