@@ -3,12 +3,24 @@
         <title>Another awesome Lance multiplayer network game</title>
         <script src="/socket.io/socket.io.js"></script>
         <script src="dist/bundle.js" type="text/javascript"></script>
+        <style>
+            .user {
+                position: absolute;
+                width: 9px;
+                background-color: #FF0000;
+                height: 30px;
+            }
+            .screen {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100vw;
+                height: 100vh;
+            }
+        </style>
     </head>
     <body>
-        <div style="width: 400px; height: 400px; background: black">
-            <div style="position:absolute;width:10px;height:50px;background:white" class="paddle1"></div>
-            <div style="position:absolute;width:10px;height:50px;background:white" class="paddle2"></div>
-            <div style="position:absolute;width:5px; height:5px;background:white" class="ball"></div>
+        <div class="screen">
         </div>
     </body>
 </html>

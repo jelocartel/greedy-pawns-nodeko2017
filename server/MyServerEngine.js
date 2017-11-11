@@ -6,14 +6,12 @@ class MyServerEngine extends ServerEngine {
 
     constructor(io, gameEngine, inputOptions) {
         super(io, gameEngine, inputOptions);
+        this.players = {};
     }
 
     start() {
         super.start();
-
         this.gameEngine.initGame();
-
-        this.players = {};
     }
 
     onPlayerConnected(socket) {
@@ -25,7 +23,6 @@ class MyServerEngine extends ServerEngine {
         super.onPlayerDisconnected(socketId, playerId);
         delete this.players[socketId];
         console.log('Player' + playerId + 'disconnected');
-        }
     }
 }
 

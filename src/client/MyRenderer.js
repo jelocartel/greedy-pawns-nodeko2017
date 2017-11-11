@@ -11,7 +11,7 @@ class MyRenderer extends Renderer {
 
     draw() {
         super.draw();
-
+        console.log(this.gameEngine.world.objects)
         for (let objId of Object.keys(this.sprites)) {
             if (this.sprites[objId].el) {
                 this.sprites[objId].el.style.top = this.gameEngine.world.objects[objId].position.y + 'px';
@@ -21,9 +21,19 @@ class MyRenderer extends Renderer {
     }
 
     addSprite(obj, objName) {
-        if (objName === 'paddle') objName += obj.id;
+        if (objName === 'activeplayer') objName += obj.id;
+
+        let element = document.querySelector('#' + objName);
+
+        if (!element) {
+            let div = document.createElement('div');
+            div.id = objName;
+            div.setAttribute('class', 'user');
+            document.querySelector(".screen").appendChild(div);
+        }
+
         this.sprites[obj.id] = {
-            el: document.querySelector('.' + objName)
+            el: document.querySelector('#' + objName)
         };
     }
 

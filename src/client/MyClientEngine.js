@@ -6,7 +6,7 @@ class MyClientEngine extends ClientEngine {
     constructor(gameEngine, options) {
         super(gameEngine, options, MyRenderer);
 
-        this.serializer.registerClass(require('../common/PlayerAvatar'));
+        this.serializer.registerClass(require('../../common/PlayerAvatar'));
         this.gameEngine.on('client__preStep', this.preStep.bind(this));
 
         // keep a reference for key press state
@@ -33,33 +33,15 @@ class MyClientEngine extends ClientEngine {
         if (this.pressedKeys.down) {
             this.sendInput('down', { movement: true });
         }
-
-        if (this.pressedKeys.left) {
-            this.sendInput('left', { movement: true });
-        }
-
-        if (this.pressedKeys.right) {
-            this.sendInput('right', { movement: true });
-        }
-
-        if (this.pressedKeys.space) {
-            this.sendInput('space', { movement: true });
-        }
     }
 
     onKeyChange(e, isDown) {
         e = e || window.event;
-
+        console.log(e);
         if (e.keyCode == '38') {
             this.pressedKeys.up = isDown;
         } else if (e.keyCode == '40') {
             this.pressedKeys.down = isDown;
-        } else if (e.keyCode == '37') {
-            this.pressedKeys.left = isDown;
-        } else if (e.keyCode == '39') {
-            this.pressedKeys.right = isDown;
-        } else if (e.keyCode == '32') {
-            this.pressedKeys.space = isDown;
         }
     }
 }
