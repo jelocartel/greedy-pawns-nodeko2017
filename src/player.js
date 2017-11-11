@@ -10,7 +10,8 @@ const default_options = {
   position: {
     x: 0,
     y: 3
-  }
+  },
+  base_color: 'FF00FF'
 };
 
 export class Player {
@@ -19,7 +20,7 @@ export class Player {
 
     Object.assign(this.options, default_options, options.options);
 
-    this.base_color = '0000FF';
+    this.base_color = this.options.base_color;
     this.colors = [
       hex_to_rgb(this.base_color),
       lighter_color(hex_to_rgb(this.base_color), -0.6)

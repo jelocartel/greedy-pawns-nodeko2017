@@ -10,7 +10,8 @@ const player = window.player = new Player({
   world,
   board,
   options: {
-    position: player_spawning_position
+    position: player_spawning_position,
+    base_color: '#'+Math.floor(Math.random()*16777215).toString(16)
   }
 });
 
