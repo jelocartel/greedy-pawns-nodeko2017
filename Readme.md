@@ -1,3 +1,3 @@
 GREEDY KURWA CUBES
 ---
-by @jelocartel
+by @[jelocartel](https://github.com/jelocartel)
