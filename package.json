@@ -2,6 +2,7 @@
   "name": "greedy-cubes",
   "version": "1.0.0",
   "description": "",
+  "main": "main.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:Hackbit/nko2017-jelocartel.git"
@@ -20,16 +21,28 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-serve": "^0.4.2",
     "rollup-watch": "^4.3.1",
-    "rollup": "^0.42.0"
+    "rollup": "^0.42.0",
+    "babelify": "^7.3.0",
+    "eslint-config-google": "^0.7.1",
+    "watchify": "^3.7.0"
   },
   "scripts": {
     "build": "./node_modules/rollup/bin/rollup -c",
     "dev": "./node_modules/rollup/bin/rollup -c -w",
-    "start": "node index.js",
-    "test": "node test.js"
+    "start": "node main.js",
+    "postinstall": "browserify src/client/clientMain.js -i nodejs-physijs -o dist/bundle.js ",
+    "buildlance": "browserify src/client/clientMain.js -i nodejs-physijs -o dist/bundle.js ",
+    "watchify": "watchify src/client/clientMain.js -i nodejs-physijs -o dist/bundle.js -v -d"
+  },
+  "browserify": {
+    "transform": ["babelify"]
   },
   "dependencies": {
     "cervus": "0.0.32",
-    "express": "4.15.2"
+    "browserify": "^13.0.1",
+    "express": "^4.14.0",
+    "lance-gg": "~1.0.0",
+    "query-string": "^4.2.3",
+    "socket.io": "^1.4.8"
   }
 }
