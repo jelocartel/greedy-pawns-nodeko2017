@@ -13,34 +13,18 @@ class MyServerEngine extends ServerEngine {
 
         this.gameEngine.initGame();
 
-        this.players = {
-            player1: null,
-            player2: null
-        };
+        this.players = {};
     }
 
     onPlayerConnected(socket) {
         super.onPlayerConnected(socket);
-
-        // attach newly connected player an available paddle
-        if (this.players.player1 === null) {
-            this.players.player1 = socket.id;
-            this.gameEngine.paddle1.playerId = socket.playerId;
-        } else if (this.players.player2 === null) {
-            this.players.player2 = socket.id;
-            this.gameEngine.paddle2.playerId = socket.playerId;
-        }
+        this.players[socket.id] = { id: socket.playerId };
     }
 
     onPlayerDisconnected(socketId, playerId) {
         super.onPlayerDisconnected(socketId, playerId);
-
-        if (this.players.player1 == socketId) {
-            console.log('Player 1 disconnected');
-            this.players.player1 = null;
-        } else if (this.players.player2 == socketId) {
-            console.log('Player 2 disconnected');
-            this.players.player2 = null;
+        delete this.players[socketId];
+        console.log('Player' + playerId + 'disconnected');
         }
     }
 }

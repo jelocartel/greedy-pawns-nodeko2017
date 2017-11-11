@@ -1,6 +1,5 @@
 'use strict';
 const Paddle = require('./Paddle');
-const Ball = require('./Ball');
 const PADDING = 20;
 const WIDTH = 400;
 const HEIGHT = 400;
