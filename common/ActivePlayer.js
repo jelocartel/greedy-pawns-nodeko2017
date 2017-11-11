@@ -8,7 +8,6 @@ class ActivePlayer extends DynamicObject {
         super(id);
         this.position.set(x, 0);
         this.playerId = playerId;
-        this.time = time
         this.class = ActivePlayer;
     }
 
