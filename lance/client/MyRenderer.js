@@ -9,6 +9,7 @@ class MyRenderer extends Renderer {
         this.sprites = {};
         this.cervus = {};
         this.shapes = [];
+        this.player_pawn = false;
     }
 
     init() {
@@ -36,6 +37,15 @@ class MyRenderer extends Renderer {
               ];
             }
         }
+
+        if (this.player_pawn) {
+          console.log(this.player_pawn);
+          this.cervus.world.camera_transform.position = [
+            this.player_pawn.components.transform.position[0],
+            this.cervus.world.camera_transform.position[1],
+            this.player_pawn.components.transform.position[2] - 10
+          ];
+        }
     }
 
     addSprite(obj, objName) {
@@ -44,7 +54,6 @@ class MyRenderer extends Renderer {
         const element = this.sprites[obj.id];
 
         if (!element) {
-          //create new element here
           const player_spawning_position = this.cervus.board.get_random_empty_field();
           this.sprites[obj.id] = new cervus.Player({
             shape: this.shapes[0],
@@ -55,6 +64,10 @@ class MyRenderer extends Renderer {
               base_color: '#'+Math.floor(Math.random()*16777215).toString(16)
             }
           });
+
+          if (this.clientEngine.isOwnedByPlayer(obj)) {
+            this.player_pawn = this.sprites[obj.id];
+          }
         }
     }
 

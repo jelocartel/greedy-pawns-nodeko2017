@@ -27,6 +27,6 @@ if (options.syncOptions.sync === 'extrapolate')
 const gameEngine = new MyGameEngine(options);
 const clientEngine = new MyClientEngine(gameEngine, options);
 
-document.addEventListener('DOMContentLoaded', function(e) {
+document.addEventListener('DOMContentLoaded', function() {
   clientEngine.start();
 });
