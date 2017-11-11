@@ -39,7 +39,6 @@ class MyRenderer extends Renderer {
         }
 
         if (this.player_pawn) {
-          console.log(this.player_pawn);
           this.cervus.world.camera_transform.position = [
             this.player_pawn.components.transform.position[0],
             this.cervus.world.camera_transform.position[1],

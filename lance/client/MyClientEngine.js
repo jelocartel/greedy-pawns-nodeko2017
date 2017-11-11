@@ -18,6 +18,13 @@ class MyClientEngine extends ClientEngine {
             space: false
         };
 
+        this.key_map = {
+          40: 'up',
+          38: 'down',
+          37: 'left',
+          39: 'right'
+        };
+
         let that = this;
         document.onkeydown = (e) => { that.onKeyChange(e, true); };
         document.onkeyup = (e) => { that.onKeyChange(e, false); };
@@ -33,16 +40,19 @@ class MyClientEngine extends ClientEngine {
         if (this.pressedKeys.down) {
             this.sendInput('down', { movement: true });
         }
+
+        if (this.pressedKeys.left) {
+            this.sendInput('left', { movement: true });
+        }
+
+        if (this.pressedKeys.right) {
+            this.sendInput('right', { movement: true });
+        }
     }
 
     onKeyChange(e, isDown) {
         e = e || window.event;
-        console.log(e);
-        if (e.keyCode == '38') {
-            this.pressedKeys.up = isDown;
-        } else if (e.keyCode == '40') {
-            this.pressedKeys.down = isDown;
-        }
+        this.pressedKeys[this.key_map[e.keyCode]] = isDown;
     }
 }
 

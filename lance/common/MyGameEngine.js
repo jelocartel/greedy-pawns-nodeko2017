@@ -8,12 +8,13 @@ class MyGameEngine extends GameEngine {
     constructor(options) {
         super(options);
         this.users = {};
+        this.walking_speed = 0.0583;
     }
 
     start() {
 
         super.start();
-        
+
         this.on('postStep', () => { this.postStepHandleBall(); });
         this.on('playerJoined', (joinTime, playerDesc)=>{
             let id = ++this.world.idCount;
@@ -38,15 +39,18 @@ class MyGameEngine extends GameEngine {
     }
 
     processInput(inputData, playerId) {
-
         super.processInput(inputData, playerId);
         // get the player paddle tied to the player socket
-        let playerPaddle = this.world.getPlayerObject(playerId);
-        if (playerPaddle) {
+        let player = this.world.getPlayerObject(playerId);
+        if (player) {
             if (inputData.input === 'up') {
-                playerPaddle.position.y -= 5;
+                player.position.y -= this.walking_speed;
             } else if (inputData.input === 'down') {
-                playerPaddle.position.y += 5;
+                player.position.y += this.walking_speed;
+            } else if (inputData.input === 'right') {
+                player.position.x -= this.walking_speed;
+            } else if (inputData.input === 'left') {
+                player.position.x += this.walking_speed;
             }
         }
     }
