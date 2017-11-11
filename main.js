@@ -7,6 +7,8 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, './index.html');
 
+console.log('Listening at port ' + PORT);
+
 // define routes and socket
 const server = express();
 server.get('/', function(req, res) { res.sendFile(INDEX); });
