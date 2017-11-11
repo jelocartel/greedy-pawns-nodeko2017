@@ -1,14 +1,18 @@
 import { Render, Transform, Move, Light } from 'cervus/components';
 import { Box } from 'cervus/shapes';
 import { Entity } from 'cervus/core';
+import { lighter_color } from './utils';
+import { hex_to_rgb } from 'cervus/utils';
 
 export class Player {
   constructor(options = {}) {
+    this.base_color = 'FF00FF';
     this.colors = [
-      'FF00FF',
-      '810081'
+      hex_to_rgb(this.base_color),
+      lighter_color(hex_to_rgb(this.base_color), -0.6)
     ];
 
+    console.log(this.colors);
     this.world = options.world;
     this.board = options.board;
 
@@ -29,7 +33,7 @@ export class Player {
     };
 
     this.components.render.material = this.world.material;
-    this.components.render.color = this.colors[0];
+    this.components.render.color = this.base_color;
     this.components.transform.position = [0, 0, 3];
     this.world.game.add(this.entity);
 
@@ -37,7 +41,7 @@ export class Player {
       components: [
         new Transform(),
         new Light({
-          color: this.colors[0],
+          color: this.base_color,
           intensity: 0.01
         })
       ]

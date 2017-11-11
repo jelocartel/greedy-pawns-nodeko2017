@@ -1,3 +1,6 @@
+import { lighter_color } from './utils';
+import { hex_to_rgb } from 'cervus/utils';
+
 export const CONFIG = {
   camera: {
     keyboard: true,
@@ -9,10 +12,10 @@ export const CONFIG = {
     position: [0.5, -0.5, 0.5],
     scale: 0.5,
     colors: [
-      255 * 255 * 255, // #CCC
-      204 * 204 * 204 // #FFF
+      hex_to_rgb('#FFFFFF'),
+      hex_to_rgb('#CCCCCC')
     ],
-    size: 10,
+    size: 30,
     unit_size: 50
   }
 };

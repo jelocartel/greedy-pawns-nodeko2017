@@ -3,6 +3,7 @@ import { Plane } from 'cervus/shapes';
 import { Render, Transform } from 'cervus/components';
 import { PhongMaterial } from 'cervus/materials';
 import { hex_to_rgb } from 'cervus/utils';
+import { color_to_buffer } from './utils';
 
 const board_options = CONFIG.board;
 
@@ -62,18 +63,12 @@ export class Board {
     for (let x = 0; x < board_options.size; x++) {
       this.array[x] = [];
       for (let y = 0; y < board_options.size; y++) {
-        this.array[x][y] = {
-          color: 1
-        };
+        this.array[x][y] = 1
         const color = board_options.colors[
           (x+y) % board_options.colors.length
         ];
 
-        this.pixel_buffer[y * board_options.size + x] =
-          (255   << 24) |
-          (color << 16) |
-          (color <<  8) |
-          color;
+        this.pixel_buffer[y * board_options.size + x] = color_to_buffer(color);
       }
     }
 
@@ -86,16 +81,10 @@ export class Board {
     x = ((board_options.size)/2) - x;
     y = ((board_options.size)/2) - y;
 
-    this.array[x][y] = {
-      color: color
-    };
+    this.array[x][y] = 0;
 
-    color = hex_to_rgb(color);
-    this.pixel_buffer[y * board_options.size + x] =
-      (255   << 24) |
-      (color[2]*255 << 16) |
-      (color[1]*255 <<  8) |
-      ~~(color[0] * 255);
+    // color = hex_to_rgb(color);
+    this.pixel_buffer[y * board_options.size + x] = color_to_buffer(color);
 
     this.ctx.putImageData(this.image_data, 0, 0);
 
