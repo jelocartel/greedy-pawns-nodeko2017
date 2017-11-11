@@ -6,7 +6,7 @@ import { hex_to_rgb } from 'cervus/utils';
 
 export class Player {
   constructor(options = {}) {
-    this.base_color = 'FF00FF';
+    this.base_color = '00FF00';
     this.colors = [
       hex_to_rgb(this.base_color),
       lighter_color(hex_to_rgb(this.base_color), -0.6)
