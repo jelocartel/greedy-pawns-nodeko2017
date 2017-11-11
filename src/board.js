@@ -19,14 +19,16 @@ export class Board {
     this.ctx = this.texture.getContext('2d');
     this.texture.width = board_options.size;
     this.texture.height = board_options.size;
+    this.image_data = this.ctx.getImageData(0, 0, board_options.size, board_options.size);
+
+    this.buffer = new ArrayBuffer(this.image_data.data.length);
+    this.uint8_buffer = new Uint8ClampedArray(this.buffer);
+    this.pixel_data = new Uint32Array(this.buffer);
 
     this.scaled_texture = document.createElement('canvas');
     this.scaled_ctx = this.scaled_texture.getContext('2d');
     this.scaled_texture.width = board_options.size * board_options.unit_size;
     this.scaled_texture.height = board_options.size * board_options.unit_size;
-    this.scaled_ctx.mozImageSmoothingEnabled = false;
-    this.scaled_ctx.webkitImageSmoothingEnabled = false;
-    this.scaled_ctx.msImageSmoothingEnabled = false;
     this.scaled_ctx.imageSmoothingEnabled = false;
 
     this.material = new PhongMaterial({
@@ -50,7 +52,6 @@ export class Board {
     ];
     this.components.transform.position = board_options.position;
     this.components.render.material = this.material;
-    this.components.render.color = board_options.colors[1];
     this.game.add(this.entity);
 
     this.generate_texture();
@@ -59,17 +60,20 @@ export class Board {
   generate_texture() {
     for (let x = 0; x < board_options.size; x++) {
       for (let y = 0; y < board_options.size; y++) {
-        this.ctx.fillStyle = board_options.colors[
+        const color = board_options.colors[
           (x+y) % board_options.colors.length
         ];
-        this.ctx.fillRect(
-          x,
-          y,
-          1,
-          1
-        );
+
+        this.pixel_data[y * board_options.size + x] =
+          (255   << 24) |
+          (color << 16) |
+          (color <<  8) |
+          color;
       }
     }
+
+    this.image_data.data.set(this.uint8_buffer);
+    this.ctx.putImageData(this.image_data, 0, 0);
 
     this.apply_texture();
   }
