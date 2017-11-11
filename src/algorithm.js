@@ -4,7 +4,7 @@
 //  fillMyCells(scene, myColor)
 // }
 
-export class Algorithmes {
+export class Algorithm {
   constructor() {
     console.log('elo');
   }
@@ -14,14 +14,16 @@ export class Algorithmes {
       return;
     }
     scene[x][y] = newValue;
-    floodFill(scene, x+1, y, toChange, newValue);
-    floodFill(scene, x-1, y, toChange, newValue);
-    floodFill(scene, x, y+1, toChange, newValue);
-    floodFill(scene, x, y-1, toChange, newValue);
+    this.floodFill(scene, x+1, y, toChange, newValue);
+    this.floodFill(scene, x-1, y, toChange, newValue);
+    this.floodFill(scene, x, y+1, toChange, newValue);
+    this.floodFill(scene, x, y-1, toChange, newValue);
   }
 
   fillMyCells(scene, myColor) {
-    var newArray = new Array(scene.length).fill(null).map(()=>new Array(scene[0].length).fill(null));
+    var newArray = new Array(scene.length)
+      .fill(null)
+      .map(() => new Array(scene[0].length).fill(null));
     for (var i =  0; i < scene.length; i++) {
       for  (var j = 0; j < scene[0].length; j++) {
         if (scene[i][j].color === myColor) {
@@ -31,8 +33,8 @@ export class Algorithmes {
         }
       }
     }
-    // // all old fields has myCOlor and all fields on road has myColor
-    var tempArray = newArray;
+    // // all old fields has myColor and all fields on road has myColor
+    var tempArray = newArray.slice();
     tempArray.forEach(function(row) {
       row.push(1);
     });
@@ -42,7 +44,7 @@ export class Algorithmes {
     tempArray.push(new Array(scene.length + 2).fill(1));
     tempArray.unshift(new Array(scene[0].length + 2).fill(1));
     console.log('tempArray= ', tempArray);
-    floodFill(tempArray, 0, 0, 1, 2);
+    this.floodFill(tempArray, 0, 0, 1, 2);
     // make array smaller again
     tempArray.pop();
     tempArray.shift();

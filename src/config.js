@@ -12,7 +12,7 @@ export const CONFIG = {
       255 * 255 * 255, // #CCC
       204 * 204 * 204 // #FFF
     ],
-    size: 100,
+    size: 10,
     unit_size: 50
   }
 };

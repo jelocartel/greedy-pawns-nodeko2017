@@ -10,6 +10,8 @@ export class Board {
   constructor(options = {}) {
     this.world = options.world;
 
+    this.array = window.array = [];
+
     this.entity = new Plane();
     this.components = {
       transform: this.entity.get_component(Transform),
@@ -58,7 +60,11 @@ export class Board {
 
   generate_texture() {
     for (let x = 0; x < board_options.size; x++) {
+      this.array[x] = [];
       for (let y = 0; y < board_options.size; y++) {
+        this.array[x][y] = {
+          color: 1
+        };
         const color = board_options.colors[
           (x+y) % board_options.colors.length
         ];
@@ -79,6 +85,11 @@ export class Board {
   color_square(x, y, color) {
     x = ((board_options.size)/2) - x;
     y = ((board_options.size)/2) - y;
+
+    this.array[x][y] = {
+      color: color
+    };
+
     color = hex_to_rgb(color);
     this.pixel_buffer[y * board_options.size + x] =
       (255   << 24) |
