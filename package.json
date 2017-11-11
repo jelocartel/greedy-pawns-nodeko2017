@@ -35,15 +35,17 @@
     "watchify": "watchify src/client/clientMain.js -i nodejs-physijs -o dist/bundle.js -v -d"
   },
   "browserify": {
-    "transform": ["babelify"]
+    "transform": [
+      "babelify"
+    ]
   },
   "dependencies": {
-    "cervus": "0.0.32",
+    "babelify": "^7.3.0",
     "browserify": "^13.0.1",
+    "cervus": "0.0.32",
     "express": "^4.14.0",
     "lance-gg": "~1.0.0",
     "query-string": "^4.2.3",
-    "socket.io": "^1.4.8",
-    "babelify": "^7.3.0"
+    "socket.io": "^1.4.8"
   }
 }
