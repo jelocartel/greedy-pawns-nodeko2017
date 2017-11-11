@@ -1,8 +1,11 @@
 import { CONFIG } from './config';
+import { FloodFill } from './flood_fill';
+
 import { Plane } from 'cervus/shapes';
 import { Render, Transform } from 'cervus/components';
 import { PhongMaterial } from 'cervus/materials';
-import { hex_to_rgb } from 'cervus/utils';
+
+
 import { color_to_buffer } from './utils';
 
 const board_options = CONFIG.board;
@@ -12,6 +15,7 @@ export class Board {
     this.world = options.world;
 
     this.array = window.array = [];
+    this.flood_fill = new FloodFill();
 
     this.entity = new Plane();
     this.components = {
@@ -77,19 +81,23 @@ export class Board {
     this.apply_texture();
   }
 
-  color_square(x, y, color) {
-    x = ((board_options.size)/2) - x;
-    y = ((board_options.size)/2) - y;
+  color_square(x, y, colors, screen_to_array_coords = true) {
+    if (screen_to_array_coords) {
+      x = ((board_options.size)/2) - x;
+      y = ((board_options.size)/2) - y;
+    }
 
     this.array[x][y] = 0;
 
-    // color = hex_to_rgb(color);
+    const color = colors[Math.abs((x + y)%2)];
+
     this.pixel_buffer[y * board_options.size + x] = color_to_buffer(color);
 
     this.ctx.putImageData(this.image_data, 0, 0);
 
     this.apply_texture();
   }
+
 
   apply_texture(texture = this.texture) {
     this.material.texture = new Promise(resolve => {
@@ -98,5 +106,20 @@ export class Board {
         0, 0, this.scaled_texture.width, this.scaled_texture.height);
       resolve(this.scaled_texture);
     });
+  }
+
+  redraw_board(colors) {
+    const new_board_array = this.flood_fill.compute_scene(this.array);
+    new_board_array.forEach((arr, x) => {
+      arr.forEach((value, y) => {
+        if (value === this.array[x][y]) {
+          return;
+        }
+
+        if (value === 0) {
+          this.color_square(x, y, colors, false);
+        }
+      });
+    })
   }
 }

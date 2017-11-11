@@ -14,7 +14,7 @@ export const CONFIG = {
       hex_to_rgb('#FFFFFF'),
       hex_to_rgb('#CCCCCC')
     ],
-    size: 10,
+    size: 30,
     unit_size: 50
   }
 };

@@ -12,7 +12,7 @@ export class Player {
       lighter_color(hex_to_rgb(this.base_color), -0.6)
     ];
 
-    console.log(this.colors);
+    console.log('Michał, kurwa, napraw mnie', this.colors);
     this.world = options.world;
     this.board = options.board;
 
@@ -51,6 +51,10 @@ export class Player {
     this.world.game.add(this.light);
   }
 
+  end_round_calculations() {
+    this.board.redraw_board(this.colors);
+  }
+
   on_tick() {
     const position = this.components.transform.position;
 
@@ -87,7 +91,7 @@ export class Player {
       this.board.color_square(
         rounded_x,
         rounded_y,
-        this.colors[Math.abs((rounded_x + rounded_y)%2)]
+        this.colors
       )
     }
 
