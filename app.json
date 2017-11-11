@@ -1,0 +1,8 @@
+{
+  "name": "jelocartel-nko2017",
+  "description": "A barebones Node.js app using Express 4",
+  "repository": "https://github.com/Hackbit/nko2017-jelocartel.git",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
+}

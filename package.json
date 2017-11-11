@@ -24,9 +24,12 @@
   },
   "scripts": {
     "build": "./node_modules/rollup/bin/rollup -c",
-    "dev": "./node_modules/rollup/bin/rollup -c -w"
+    "dev": "./node_modules/rollup/bin/rollup -c -w",
+    "start": "node index.js",
+    "test": "node test.js"
   },
   "dependencies": {
-    "cervus": "0.0.32"
+    "cervus": "0.0.32",
+    "express": "4.15.2"
   }
 }
