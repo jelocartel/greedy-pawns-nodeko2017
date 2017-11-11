@@ -22,11 +22,7 @@ export class FloodFill {
     tempArray.push(new Array(scene.length + 2).fill(1));
     tempArray.unshift(new Array(scene.length + 2).fill(1));
 
-    // try {
-      this.fill(tempArray, 0, 0, 1, 2);
-    // } catch (e) {
-    // }
-
+    this.fill(tempArray, 0, 0, 1, 2);
 
     tempArray.pop();
     tempArray.shift();
