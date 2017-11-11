@@ -20,21 +20,8 @@ export class Algorithm {
     this.floodFill(scene, x, y-1, toChange, newValue);
   }
 
-  fillMyCells(scene, myColor) {
-    var newArray = new Array(scene.length)
-      .fill(null)
-      .map(() => new Array(scene[0].length).fill(null));
-    for (var i =  0; i < scene.length; i++) {
-      for  (var j = 0; j < scene[0].length; j++) {
-        if (scene[i][j].color === myColor) {
-          newArray[i][j] = 0;
-        } else {
-          newArray[i][j] = 1;
-        }
-      }
-    }
-    // // all old fields has myColor and all fields on road has myColor
-    var tempArray = newArray.slice();
+  fillMyCells(scene) {
+    var tempArray = scene.slice();
     tempArray.forEach(function(row) {
       row.push(1);
     });
@@ -43,9 +30,8 @@ export class Algorithm {
     });
     tempArray.push(new Array(scene.length + 2).fill(1));
     tempArray.unshift(new Array(scene[0].length + 2).fill(1));
-    console.log('tempArray= ', tempArray);
     this.floodFill(tempArray, 0, 0, 1, 2);
-    // make array smaller again
+    
     tempArray.pop();
     tempArray.shift();
     tempArray.forEach(function(row) {
@@ -54,12 +40,16 @@ export class Algorithm {
     tempArray.forEach(function(row) {
       row.pop();
     });
+
     for (var i =  0; i < scene.length; i++) {
       for  (var j = 0; j < scene[0].length; j++) {
         if (tempArray[i][j] === 1) {
-          scene[i][j].color = myColor;
+          scene[i][j] = 0;
+        } else if (tempArray[i][j] === 2) {
+          scene[i][j] = 1;
         }
       }
     }
+    return tempArray;
   }
 }
