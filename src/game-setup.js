@@ -22,4 +22,6 @@ export function GameSetup() {
     requires: [ Render, Transform ]
   });
   CONFIG.material = material;
+
+  return game;
 }

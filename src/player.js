@@ -28,6 +28,25 @@ export class Player {
   }
 
   on_tick() {
+    const position = this.components.transform.position;
+    if (this.lastX === position[0]) {
+      this.components.transform.position = [
+        Math.round(position[0]),
+        position[1],
+        position[2]
+      ];
+    } else {
+      this.lastX = position[0];
+    }
 
+    if (this.lastY === position[2]) {
+      this.components.transform.position = [
+        position[0],
+        position[1],
+        Math.round(position[2])
+      ];
+    } else {
+      this.lastY = position[2];
+    }
   }
 }
