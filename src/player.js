@@ -1,7 +1,6 @@
 import { CONFIG } from './config';
 
 import { Render, Transform, Move, Light } from 'cervus/components';
-import { Box } from 'cervus/shapes';
 import { Entity } from 'cervus/core';
 import { lighter_color } from './utils';
 import { hex_to_rgb } from 'cervus/utils';
@@ -41,7 +40,6 @@ export class Player {
       min_x: Infinity
     };
 
-    console.log(options.shape[0]);
     this.entity = new Entity({
       components: [
         new Transform({
@@ -54,17 +52,17 @@ export class Player {
           material: this.world.material,
           color: this.base_color
         }),
-        new Move({
-          keyboard_controlled: true,
-          rotate_speed: 0
-        })
+        // new Move({
+        //   keyboard_controlled: true,
+        //   rotate_speed: 0
+        // })
       ]
     });
 
     this.components = {
       transform: this.entity.get_component(Transform),
       render: this.entity.get_component(Render),
-      move: this.entity.get_component(Move)
+      // move: this.entity.get_component(Move)
     };
 
     this.components.transform.position = [
@@ -78,6 +76,7 @@ export class Player {
       Math.round(((CONFIG.board.size)/2) - this.options.position.y),
       this.colors
     );
+
     this.world.camera_transform.position = [
       this.options.position.x,
       this.world.camera_transform.position[1],
