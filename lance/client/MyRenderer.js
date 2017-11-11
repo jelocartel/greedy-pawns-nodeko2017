@@ -65,13 +65,13 @@ class MyRenderer extends Renderer {
         const element = this.sprites[obj.id];
 
         if (!element) {
-          const player_spawning_position = this.cervus.board.get_random_empty_field();
+          //const player_spawning_position = this.gameEngine.board.get_random_empty_field();
           this.sprites[obj.id] = new cervus.Player({
             shape: this.shapes[0],
             world: this.cervus.world,
             board: this.cervus.board,
             options: {
-              position: player_spawning_position,
+              position: obj.position,
               base_color: obj.color
             }
           });

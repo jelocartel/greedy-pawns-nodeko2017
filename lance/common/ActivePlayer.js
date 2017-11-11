@@ -15,12 +15,11 @@ class ActivePlayer extends DynamicObject {
         this.color = other.color;
     }
 
-    constructor(id, x, playerId) {
+    constructor(id, x, y) {
         super(id);
-        this.position.set(x, 0);
-        this.playerId = playerId;
+        this.position.set(x, y);
+        this.playerId = id;
         this.color = '#'+Math.floor(Math.random()*16777215).toString(16);
-        console.log(this.color);
         this.class = ActivePlayer;
     }
 

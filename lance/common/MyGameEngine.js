@@ -1,5 +1,6 @@
 'use strict';
 const ActivePlayer = require('./ActivePlayer');
+const Board = require('../common/Board');
 
 const GameEngine = require('lance-gg').GameEngine;
 
@@ -14,11 +15,14 @@ class MyGameEngine extends GameEngine {
     start() {
 
         super.start();
+        this.board = new Board(++this.world.idCount, 100);
 
         this.on('postStep', () => { this.postStepHandleBall(); });
         this.on('playerJoined', (joinTime, playerDesc)=>{
             let id = ++this.world.idCount;
-            this.addObjectToWorld(new ActivePlayer(id, id*10, id));
+            let position = this.board.get_random_empty_field();
+            this.addObjectToWorld(new ActivePlayer(id, position.x, position.y));
+            this.board.mark_user_starting_filed(position.x, position.y, id);
         });
         this.on('objectAdded', (object) => {
             this.users[object.id] = object;
@@ -35,7 +39,8 @@ class MyGameEngine extends GameEngine {
     }
 
     registerClasses(serializer) {
-        //serializer.registerClass(require('../common/ActivePlayer'));
+        serializer.registerClass(require('../common/ActivePlayer'));
+        serializer.registerClass(Board);
     }
 
     processInput(inputData, playerId) {
