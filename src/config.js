@@ -1,4 +1,3 @@
-import { lighter_color } from './utils';
 import { hex_to_rgb } from 'cervus/utils';
 
 export const CONFIG = {
@@ -15,7 +14,7 @@ export const CONFIG = {
       hex_to_rgb('#FFFFFF'),
       hex_to_rgb('#CCCCCC')
     ],
-    size: 30,
+    size: 10,
     unit_size: 50
   }
 };
