@@ -1,8 +1,11 @@
-import { Render, Transform, Move } from 'cervus/components';
+import { Render, Transform, Move, Light } from 'cervus/components';
 import { Box } from 'cervus/shapes';
+import { Entity } from 'cervus/core';
 
 export class Player {
   constructor(options = {}) {
+    this.color = 'FF00FF';
+
     this.world = options.world;
     this.lastX = 0;
     this.lastY = 0;
@@ -21,13 +24,27 @@ export class Player {
     };
 
     this.components.render.material = this.world.material;
-    this.components.render.color = 'ff00ff';
+    this.components.render.color = this.color;
     this.components.transform.position = [0, 0, 3];
     this.world.game.add(this.entity);
+
+    this.light = new Entity({
+      components: [
+        new Transform(),
+        new Light({
+          color: this.color,
+          intensity: 0.05
+        })
+      ]
+    });
+    this.light_transform = this.light.get_component(Transform);
+
+    this.world.game.add(this.light);
   }
 
   on_tick() {
     const position = this.components.transform.position;
+
     if (this.lastX === position[0]) {
       this.components.transform.position = [
         Math.round(position[0]),
@@ -47,5 +64,11 @@ export class Player {
     } else {
       this.lastY = position[2];
     }
+
+    this.light_transform.position = [
+      position[0],
+      position[1],
+      position[2]
+    ];
   }
 }

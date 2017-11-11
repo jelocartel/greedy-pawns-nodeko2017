@@ -2,7 +2,7 @@ import { CONFIG } from './config';
 
 import { Game } from 'cervus/core';
 import { PhongMaterial } from 'cervus/materials';
-import { Render, Transform, Move } from 'cervus/components';
+import { Render, Transform, Move, Light } from 'cervus/components';
 
 export class World {
   constructor() {
@@ -16,6 +16,10 @@ export class World {
     this.camera_transform.rotation = [0.387, 0, 0, 0.921];
     this.game.camera.get_component(Move).keyboard_controlled = CONFIG.camera.keyboard;
     this.game.camera.get_component(Move).mouse_controlled = CONFIG.camera.mouse;
+
+    this.light_transform = this.game.light.get_component(Transform);
+    this.game.light.get_component(Light).intensity = 0.5;
+    // this.game.remove();
 
     this.material = new PhongMaterial({
       requires: [ Render, Transform ]

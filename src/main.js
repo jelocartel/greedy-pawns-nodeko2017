@@ -8,4 +8,9 @@ const player = new Player({world});
 
 world.game.on('tick', () => {
   player.on_tick();
+  // world.light_transform.position = [
+  //   world.camera_transform.position[0],
+  //   world.camera_transform.position[1] - 7,
+  //   world.camera_transform.position[2],
+  // ];
 });
