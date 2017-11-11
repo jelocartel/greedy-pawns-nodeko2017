@@ -1,10 +1,12 @@
 import { World } from './world';
 import { Board } from './board';
 import { Player } from './player';
+import { Algorithm } from './algorithm';
 
 const world = new World();
 const board = new Board({world});
 const player = new Player({world, board});
+window.algorithm = new Algorithm();
 
 world.game.on('tick', () => {
   player.on_tick();
