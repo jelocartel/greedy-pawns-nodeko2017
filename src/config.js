@@ -9,8 +9,8 @@ export const CONFIG = {
     position: [0.5, -0.5, 0.5],
     scale: 0.5,
     colors: [
-      255, // #CCC
-      204 // #FFF
+      255 * 255 * 255, // #CCC
+      204 * 204 * 204 // #FFF
     ],
     size: 100,
     unit_size: 50

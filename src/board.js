@@ -2,6 +2,7 @@ import { CONFIG } from './config';
 import { Plane } from 'cervus/shapes';
 import { Render, Transform } from 'cervus/components';
 import { PhongMaterial } from 'cervus/materials';
+import { hex_to_rgb } from 'cervus/utils';
 
 const board_options = CONFIG.board;
 
@@ -21,9 +22,7 @@ export class Board {
     this.texture.height = board_options.size;
     this.image_data = this.ctx.getImageData(0, 0, board_options.size, board_options.size);
 
-    this.buffer = new ArrayBuffer(this.image_data.data.length);
-    this.uint8_buffer = new Uint8ClampedArray(this.buffer);
-    this.pixel_data = new Uint32Array(this.buffer);
+    this.pixel_buffer = new Uint32Array(this.image_data.data.buffer);
 
     this.scaled_texture = document.createElement('canvas');
     this.scaled_ctx = this.scaled_texture.getContext('2d');
@@ -64,7 +63,7 @@ export class Board {
           (x+y) % board_options.colors.length
         ];
 
-        this.pixel_data[y * board_options.size + x] =
+        this.pixel_buffer[y * board_options.size + x] =
           (255   << 24) |
           (color << 16) |
           (color <<  8) |
@@ -72,7 +71,21 @@ export class Board {
       }
     }
 
-    this.image_data.data.set(this.uint8_buffer);
+    this.ctx.putImageData(this.image_data, 0, 0);
+
+    this.apply_texture();
+  }
+
+  color_square(x, y, color) {
+    x = ((board_options.size)/2) - x;
+    y = ((board_options.size)/2) - y;
+    color = hex_to_rgb(color);
+    this.pixel_buffer[y * board_options.size + x] =
+      (255   << 24) |
+      (color[2]*255 << 16) |
+      (color[1]*255 <<  8) |
+      ~~(color[0] * 255);
+
     this.ctx.putImageData(this.image_data, 0, 0);
 
     this.apply_texture();

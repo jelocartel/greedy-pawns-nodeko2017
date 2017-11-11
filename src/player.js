@@ -4,9 +4,14 @@ import { Entity } from 'cervus/core';
 
 export class Player {
   constructor(options = {}) {
-    this.color = 'FF00FF';
+    this.colors = [
+      'FF00FF',
+      '810081'
+    ];
 
     this.world = options.world;
+    this.board = options.board;
+
     this.lastX = 0;
     this.lastY = 0;
     this.last_colored = '';
@@ -24,7 +29,7 @@ export class Player {
     };
 
     this.components.render.material = this.world.material;
-    this.components.render.color = this.color;
+    this.components.render.color = this.colors[0];
     this.components.transform.position = [0, 0, 3];
     this.world.game.add(this.entity);
 
@@ -32,8 +37,8 @@ export class Player {
       components: [
         new Transform(),
         new Light({
-          color: this.color,
-          intensity: 0.05
+          color: this.colors[0],
+          intensity: 0.01
         })
       ]
     });
@@ -70,5 +75,17 @@ export class Player {
       position[1],
       position[2]
     ];
+
+    const rounded_x = Math.round(position[0]);
+    const rounded_y = Math.round(position[2]);
+    if (this.last_colored !== rounded_x + '-' + rounded_y) {
+      this.last_colored = rounded_x + '-' + rounded_y;
+      this.board.color_square(
+        rounded_x,
+        rounded_y,
+        this.colors[Math.abs((rounded_x + rounded_y)%2)]
+      )
+    }
+
   }
 }
