@@ -45,6 +45,7 @@ class MyRenderer extends Renderer {
 
         if (!element) {
           //create new element here
+          console.log(obj.color);
           const player_spawning_position = this.cervus.board.get_random_empty_field();
           this.sprites[obj.id] = new cervus.Player({
             shape: this.shapes[0],
@@ -52,7 +53,7 @@ class MyRenderer extends Renderer {
             board: this.cervus.board,
             options: {
               position: player_spawning_position,
-              base_color: '#'+Math.floor(Math.random()*16777215).toString(16)
+              base_color: obj.color
             }
           });
         }

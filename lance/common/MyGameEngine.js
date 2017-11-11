@@ -17,7 +17,7 @@ class MyGameEngine extends GameEngine {
         this.on('postStep', () => { this.postStepHandleBall(); });
         this.on('playerJoined', (joinTime, playerDesc)=>{
             let id = ++this.world.idCount;
-            this.addObjectToWorld(new ActivePlayer(id, id*10, id, joinTime));
+            this.addObjectToWorld(new ActivePlayer(id, id*10, id));
         });
         this.on('objectAdded', (object) => {
             this.users[object.id] = object;
@@ -34,7 +34,7 @@ class MyGameEngine extends GameEngine {
     }
 
     registerClasses(serializer) {
-        serializer.registerClass(require('../common/ActivePlayer'));
+        //serializer.registerClass(require('../common/ActivePlayer'));
     }
 
     processInput(inputData, playerId) {
