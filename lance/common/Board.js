@@ -12,6 +12,9 @@ class Board extends DynamicObject {
         }, super.netScheme );
     }
 
+    get bendingMultiple() { return null; }
+    get bendingVelocityMultiple() { return null; }
+
     syncTo(other) {
         super.syncTo(other);
         this.board = other.board;
@@ -34,7 +37,7 @@ class Board extends DynamicObject {
       let tmp = JSON.parse(this.board);
       tmp[y][x] = val;
       this.board = JSON.stringify(tmp);
-      console.log(this.board);
+      // console.log(this.board);
     }
 
     getArray() {
@@ -42,6 +45,7 @@ class Board extends DynamicObject {
     }
 
     mark_user_starting_filed(x, y, user) {
+      console.log('user-starting', x, y);
       let half_size = ~~(this.stating_field_size/2);
      for (let i = x - half_size; i < x + half_size + 1; i++) {
        for (let j = y - half_size; j < y + half_size + 1; j++) {

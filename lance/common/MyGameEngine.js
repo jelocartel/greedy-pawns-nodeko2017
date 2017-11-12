@@ -13,16 +13,14 @@ class MyGameEngine extends GameEngine {
     }
 
     start() {
-
         super.start();
-        this.board = new Board(++this.world.idCount, 100, 3);
-        this.addObjectToWorld(this.board);
-        this.on('postStep', () => { this.postStepHandleBall(); });
-        this.on('playerJoined', (joinTime, playerDesc)=>{
+        // this.board = new Board(++this.world.idCount, 100, 3);
+        // this.addObjectToWorld(this.board);
+        this.on('playerJoined', (joinTime, playerDesc) => {
             let id = ++this.world.idCount;
-            let position = this.board.get_random_empty_field();
+            let position = this.world.objects[1].get_random_empty_field();
             this.addObjectToWorld(new ActivePlayer(id, position.x, position.y));
-            this.board.mark_user_starting_filed(position.x, position.y, id);
+            this.world.objects[1].mark_user_starting_filed(position.x, position.y, id);
         });
         this.on('objectAdded', (object) => {
             this.users[object.id] = object;

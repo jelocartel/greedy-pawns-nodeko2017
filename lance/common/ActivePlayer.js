@@ -22,6 +22,7 @@ class ActivePlayer extends DynamicObject {
     }
 
     constructor(id, x, y) {
+      console.log('active player', x, y);
         super(id);
         this.position.set(x, y);
         this.playerId = id;

@@ -45,12 +45,13 @@ class MyRenderer extends Renderer {
           }
         }
 
-        if (this.lastBoard !== this.gameEngine.board.board) {
-          console.log('arraye nie sa takie same');
-          this.lastBoard = this.gameEngine.board.board;
-          const board = this.gameEngine.board.getArray();
-          // console.log(board);
-          this.cervus.board.redraw_board(board, this.sprites);
+        const board_id = 1;
+        if (this.gameEngine.world.objects[board_id] && this.lastBoard !== this.gameEngine.world.objects[board_id].board) {
+          this.lastBoard = this.gameEngine.world.objects[board_id].board;
+          const board = this.gameEngine.world.objects[board_id].getArray();
+          if (board) {
+            this.cervus.board.redraw_board(board, this.sprites);
+          }
         }
 
         // console.log(board);
