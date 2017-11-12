@@ -11,6 +11,7 @@ class MyRenderer extends Renderer {
         this.shapes = [];
         this.player_pawn = false;
         this.lastBoard = '';
+        this.points_div = document.querySelector('div.points');
     }
 
     init() {
@@ -24,6 +25,30 @@ class MyRenderer extends Renderer {
         return super.init();
       });
 
+    }
+
+    show_points(points) {
+      if (!points) {
+        return;
+      }
+
+      points = JSON.parse(points);
+      this.points_div.innerHTML = '';
+      let output = '';
+      Object.keys(points).sort(function(a, b) {
+        return points[b] - points[a]
+      }).forEach(player => {
+        if (!this.gameEngine.world.objects[player]) {
+          return;
+        }
+        output += `
+          <div class="player" style="color:${this.gameEngine.world.objects[player].color}">
+          ${player} - ${points[player]}
+          </div>
+          `;
+      });
+
+      this.points_div.innerHTML = output;
     }
 
     draw() {
@@ -50,6 +75,7 @@ class MyRenderer extends Renderer {
 
         const board_id = 1;
         if (this.gameEngine.world.objects[board_id] && this.lastBoard !== this.gameEngine.world.objects[board_id].board) {
+          this.show_points(this.gameEngine.world.objects[board_id].scoreTable);
           this.lastBoard = this.gameEngine.world.objects[board_id].board;
           const board = this.gameEngine.world.objects[board_id].getArray();
           if (board) {
