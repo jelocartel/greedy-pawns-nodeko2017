@@ -7,6 +7,7 @@ class ActivePlayer extends DynamicObject {
     static get netScheme() {
         return Object.assign({
             color: { type: Serializer.TYPES.STRING },
+            boundaries: { type: Serializer.TYPES.STRING },
             lastX: { type: Serializer.TYPES.FLOAT32 },
             lastY: { type: Serializer.TYPES.FLOAT32 },
             shape: { type: Serializer.TYPES.UINT8 }
@@ -19,6 +20,7 @@ class ActivePlayer extends DynamicObject {
         this.lastX = other.lastX;
         this.lastY = other.lastY;
         this.shape = other.shape;
+        this.boundaries = other.boundaries
     }
 
     constructor(id, x, y) {
@@ -30,6 +32,23 @@ class ActivePlayer extends DynamicObject {
         this.lastX = this.lastY = 0;
         this.shape = 0;// ~~(Math.random()*2);
         this.class = ActivePlayer;
+        this.boundaries = JSON.stringify({
+            max_y: x,
+            min_y: y,
+            max_x: x,
+            min_x: y,
+        })
+    }
+    setboundriesXY(x,y) {
+        let pom = this.getBoundaries();
+        if (x < pom.min_x) pom.min_x = x;
+        if (x > pom.max_x) pom.max_x = x;
+        if (y < pom.min_y) pom.min_y = y;
+        if (y > pom.max_y) pom.max_y = y;
+    }
+
+    getBoundaries() {
+        return JSON.parse(this.boundaries);
     }
 
     onAddToWorld(gameEngine) {
