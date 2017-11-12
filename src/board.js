@@ -130,16 +130,16 @@ export class Board {
   }
 
   mark_user_starting_filed(x, y, colors) {
-    let half_size = ~~(board_options.players_starting_field_size/2);
+   /*  let half_size = ~~(board_options.players_starting_field_size/2);
     for (let i = x - half_size; i < x + half_size + 1; i++) {
       for (let j = y - half_size; j < y + half_size + 1; j++) {
         this.color_square(i, j, colors, false);
       }
     }
-    this.apply_texture();
+    this.apply_texture();*/
   }
 
-  get_random_empty_field() {
+  /* get_random_empty_field() {
     let x = ~~(Math.random() * board_options.size);
     let y = ~~(Math.random() * board_options.size);
     while (this.array[x][y] !== 1) {
@@ -150,5 +150,5 @@ export class Board {
     x -= CONFIG.board.size/2;
     y -= CONFIG.board.size/2;
     return {x, y};
-  }
+  } */
 }

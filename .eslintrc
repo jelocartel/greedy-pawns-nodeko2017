@@ -10,6 +10,11 @@
     "no-console": 0
   },
   "globals": {
-    "FB": false
+    "FB": false,
+    "require": true,
+    "process": true,
+    "__dirname": true,
+    "module": true,
+    "cervus": true
   }
 }

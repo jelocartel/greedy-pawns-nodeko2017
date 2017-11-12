@@ -1,12 +1,11 @@
 const ClientEngine = require('lance-gg').ClientEngine;
-const MyRenderer = require('../client/MyRenderer');
+const MyRenderer = require('./MyRenderer');
 
 class MyClientEngine extends ClientEngine {
 
     constructor(gameEngine, options) {
         super(gameEngine, options, MyRenderer);
 
-        this.serializer.registerClass(require('../../common/PlayerAvatar'));
         this.gameEngine.on('client__preStep', this.preStep.bind(this));
 
         // keep a reference for key press state
@@ -16,6 +15,13 @@ class MyClientEngine extends ClientEngine {
             left: false,
             right: false,
             space: false
+        };
+
+        this.key_map = {
+          40: 'up',
+          38: 'down',
+          37: 'left',
+          39: 'right'
         };
 
         let that = this;
@@ -33,16 +39,19 @@ class MyClientEngine extends ClientEngine {
         if (this.pressedKeys.down) {
             this.sendInput('down', { movement: true });
         }
+
+        if (this.pressedKeys.left) {
+            this.sendInput('left', { movement: true });
+        }
+
+        if (this.pressedKeys.right) {
+            this.sendInput('right', { movement: true });
+        }
     }
 
     onKeyChange(e, isDown) {
         e = e || window.event;
-        console.log(e);
-        if (e.keyCode == '38') {
-            this.pressedKeys.up = isDown;
-        } else if (e.keyCode == '40') {
-            this.pressedKeys.down = isDown;
-        }
+        this.pressedKeys[this.key_map[e.keyCode]] = isDown;
     }
 }
 

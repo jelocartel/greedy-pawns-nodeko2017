@@ -1,6 +1,6 @@
 const qsOptions = require('query-string').parse(location.search);
-const MyClientEngine = require('../client/MyClientEngine');
-const MyGameEngine = require('../../common/MyGameEngine');
+const MyClientEngine = require('./MyClientEngine');
+const MyGameEngine = require('../common/MyGameEngine');
 const SimplePhysicsEngine = require('lance-gg').physics.SimplePhysicsEngine;
 
 
@@ -27,4 +27,6 @@ if (options.syncOptions.sync === 'extrapolate')
 const gameEngine = new MyGameEngine(options);
 const clientEngine = new MyClientEngine(gameEngine, options);
 
-document.addEventListener('DOMContentLoaded', function(e) { clientEngine.start(); });
+document.addEventListener('DOMContentLoaded', function() {
+  clientEngine.start();
+});

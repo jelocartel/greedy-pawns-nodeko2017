@@ -58,5 +58,6 @@ typings/
 .env
 
 dist/index.js
+dist/bundle.js
 package-lock.json
 *.trace
