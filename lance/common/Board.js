@@ -24,14 +24,19 @@ class Board extends DynamicObject {
         this.class = Board;
         this.size = size;
         this.stating_field_size = stating_field_size;
-        this.board= (new Array(size)).fill((new Array(size)).fill(0));
+        this.board = (new Array(size)).fill((new Array(size)).fill(0));
         this.board = JSON.stringify(this.board);
     }
+
     setVal(x, y, val) {
+      x = Math.round(50 - x);
+      y = Math.round(50 - y);
       let tmp = JSON.parse(this.board);
       tmp[y][x] = val;
       this.board = JSON.stringify(tmp);
+      console.log(this.board);
     }
+
     getArray() {
       return JSON.parse(this.board);
     }
@@ -53,7 +58,7 @@ class Board extends DynamicObject {
         x = ~~(Math.random() * this.size);
         y = ~~(Math.random() * this.size);
       }
-  
+
       x -= this.size/2;
       y -= this.size/2;
       return {x, y};

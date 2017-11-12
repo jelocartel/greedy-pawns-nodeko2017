@@ -15,8 +15,8 @@ class MyGameEngine extends GameEngine {
     start() {
 
         super.start();
-        this.board = new Board(++this.world.idCount, 100);
-
+        this.board = new Board(++this.world.idCount, 100, 3);
+        this.addObjectToWorld(this.board);
         this.on('postStep', () => { this.postStepHandleBall(); });
         this.on('playerJoined', (joinTime, playerDesc)=>{
             let id = ++this.world.idCount;
@@ -40,10 +40,7 @@ class MyGameEngine extends GameEngine {
 
     registerClasses(serializer) {
         serializer.registerClass(require('../common/ActivePlayer'));
-<<<<<<< HEAD
-        serializer.registerClass(Board);
-=======
->>>>>>> 3455429... new pawns
+        serializer.registerClass(require('../common/Board'));
     }
 
     processInput(inputData, playerId) {

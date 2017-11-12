@@ -10,6 +10,7 @@ class MyRenderer extends Renderer {
         this.cervus = {};
         this.shapes = [];
         this.player_pawn = false;
+        this.lastBoard = '';
     }
 
     init() {
@@ -29,21 +30,30 @@ class MyRenderer extends Renderer {
         super.draw();
         // console.log(this.gameEngine.world.objects)
         for (let objId of Object.keys(this.sprites)) {
-            if (this.sprites[objId]) {
-              this.sprites[objId].components.transform.position = [
-                this.gameEngine.world.objects[objId].position.x,
-                0,
-                this.gameEngine.world.objects[objId].position.y
-              ];
+          if (this.sprites[objId]) {
+            this.sprites[objId].components.transform.position = [
+              this.gameEngine.world.objects[objId].position.x,
+              0,
+              this.gameEngine.world.objects[objId].position.y
+            ];
 
-              this.sprites[objId].light_transform.position = [
-                this.gameEngine.world.objects[objId].position.x,
-                - 0.3,
-                this.gameEngine.world.objects[objId].position.y
-              ];
-            }
+            this.sprites[objId].light_transform.position = [
+              this.gameEngine.world.objects[objId].position.x,
+              - 0.3,
+              this.gameEngine.world.objects[objId].position.y
+            ];
+          }
         }
 
+        if (this.lastBoard !== this.gameEngine.board.board) {
+          console.log('arraye nie sa takie same');
+          this.lastBoard = this.gameEngine.board.board;
+          const board = this.gameEngine.board.getArray();
+          // console.log(board);
+          this.cervus.board.redraw_board(board, this.sprites);
+        }
+
+        // console.log(board);
         if (this.player_pawn) {
           this.cervus.world.camera_transform.position = [
             this.player_pawn.components.transform.position[0],

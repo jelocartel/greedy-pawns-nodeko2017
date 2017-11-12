@@ -6,10 +6,6 @@ class MyClientEngine extends ClientEngine {
     constructor(gameEngine, options) {
         super(gameEngine, options, MyRenderer);
 
-<<<<<<< HEAD
-=======
-        // this.serializer.registerClass(require('../common/ActivePlayer'));
->>>>>>> 3455429... new pawns
         this.gameEngine.on('client__preStep', this.preStep.bind(this));
 
         // keep a reference for key press state
