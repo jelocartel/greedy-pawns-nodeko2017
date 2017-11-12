@@ -113,6 +113,7 @@ class ActivePlayer extends DynamicObject {
           // this.position.y -= 0.1 - Math.random() * 0.2;
 
           world.objects[1].setVal(this.position.x, this.position.y, this.playerId);
+          this.setboundriesXY(this.position.x, this.position.y);
         }
       });
     }

@@ -81,11 +81,11 @@ class MyGameEngine extends GameEngine {
         if (player && !player.bot) {
             if (inputData.input === 'up' && player.position.y > -49) {
                 player.position.y -= this.walking_speed;
-            } else if (inputData.input === 'down' && player.position.y < 49) {
+            } else if (inputData.input === 'down' && player.position.y < 50) {
                 player.position.y += this.walking_speed;
             } else if (inputData.input === 'right' && player.position.x > -49) {
                 player.position.x -= this.walking_speed;
-            } else if (inputData.input === 'left' && player.position.x < 49) {
+            } else if (inputData.input === 'left' && player.position.x < 50) {
                 player.position.x += this.walking_speed;
             }
             // console.log('player [x, y, id]', player.position.x, player.position.y, playerId);
