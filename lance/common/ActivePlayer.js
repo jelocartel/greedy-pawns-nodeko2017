@@ -60,19 +60,19 @@ class ActivePlayer extends DynamicObject {
           }
 
           if ((e.step%this.chane_on_step === 0) ||
-           (this.position.x > 58 - this.margin &&
+           (this.position.x > 48 - this.margin &&
              ((this.axis1 === 'x' && this.dir1 === 1) ||
              (this.axis2 === 'x' && this.dir2 === 1)
               )) ||
-           (this.position.x < -58 + this.margin &&
+           (this.position.x < -48 + this.margin &&
              ((this.axis1 === 'x' && this.dir1 === -1) ||
              (this.axis2 === 'x' && this.dir2 === -1)
               )) ||
-           (this.position.y > 58 - this.margin &&
+           (this.position.y > 48 - this.margin &&
              ((this.axis1 === 'y' && this.dir1 === 1) ||
              (this.axis2 === 'y' && this.dir2 === 1)
               )) ||
-           (this.position.y < -58 + this.margin &&
+           (this.position.y < -48 + this.margin &&
              ((this.axis1 === 'y' && this.dir1 === -1) ||
              (this.axis2 === 'y' && this.dir2 === -1)
               ))) {
