@@ -105,23 +105,27 @@ export class Board {
     });
   }
 
-  redraw_board(colors, boundaries) {
-    const new_board_array = this.flood_fill.compute_scene(
-      chunk_array(this.array, boundaries)
-    );
-
-    // console.log('chunk', chunk_array(this.array, boundaries));
-    // console.log('new array', new_board_array);
+  // redraw_board(colors, boundaries) {
+  redraw_board(new_board_array, sprites) {
+    // const new_board_array = this.flood_fill.compute_scene(
+    //   chunk_array(this.array, boundaries)
+    // );
+    //
+    // // console.log('chunk', chunk_array(this.array, boundaries));
+    // // console.log('new array', new_board_array);
     new_board_array.forEach((arr, x) => {
       arr.forEach((value, y) => {
-        const final_x = boundaries.min_x + x;
-        const final_y = boundaries.min_y + y;
+        const final_x = x;
+        const final_y = y;
         if (value === this.array[final_x][final_y]) {
           return;
         }
 
-        if (value === 0) {
-          this.color_square(final_x, final_y, colors, false);
+        if (value !== 0) {
+          // console.log('1', value);
+          this.color_square(final_x, final_y, sprites[value].colors, false);
+        } else {
+          // console.log('2', value);
         }
       });
     });

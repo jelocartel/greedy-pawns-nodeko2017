@@ -10,6 +10,7 @@ class MyRenderer extends Renderer {
         this.cervus = {};
         this.shapes = [];
         this.player_pawn = false;
+        this.lastBoard = '';
     }
 
     init() {
@@ -29,21 +30,31 @@ class MyRenderer extends Renderer {
         super.draw();
         // console.log(this.gameEngine.world.objects)
         for (let objId of Object.keys(this.sprites)) {
-            if (this.sprites[objId]) {
-              this.sprites[objId].components.transform.position = [
-                this.gameEngine.world.objects[objId].position.x,
-                0,
-                this.gameEngine.world.objects[objId].position.y
-              ];
+          if (this.sprites[objId]) {
+            this.sprites[objId].components.transform.position = [
+              this.gameEngine.world.objects[objId].position.x,
+              0,
+              this.gameEngine.world.objects[objId].position.y
+            ];
 
-              this.sprites[objId].light_transform.position = [
-                this.gameEngine.world.objects[objId].position.x,
-                - 0.3,
-                this.gameEngine.world.objects[objId].position.y
-              ];
-            }
+            this.sprites[objId].light_transform.position = [
+              this.gameEngine.world.objects[objId].position.x,
+              - 0.3,
+              this.gameEngine.world.objects[objId].position.y
+            ];
+          }
         }
 
+        const board_id = 1;
+        if (this.gameEngine.world.objects[board_id] && this.lastBoard !== this.gameEngine.world.objects[board_id].board) {
+          this.lastBoard = this.gameEngine.world.objects[board_id].board;
+          const board = this.gameEngine.world.objects[board_id].getArray();
+          if (board) {
+            this.cervus.board.redraw_board(board, this.sprites);
+          }
+        }
+
+        // console.log(board);
         if (this.player_pawn) {
           this.cervus.world.camera_transform.position = [
             this.player_pawn.components.transform.position[0],
@@ -65,9 +76,15 @@ class MyRenderer extends Renderer {
         const element = this.sprites[obj.id];
 
         if (!element) {
+          // console.log(obj.position);
           //const player_spawning_position = this.gameEngine.board.get_random_empty_field();
           this.sprites[obj.id] = new cervus.Player({
-            shape: this.shapes[0],
+            shape: this.shapes[obj.shape],
+            scale: [
+              cervus.scales[obj.shape],
+              cervus.scales[obj.shape],
+              cervus.scales[obj.shape]
+            ],
             world: this.cervus.world,
             board: this.cervus.board,
             options: {
@@ -77,7 +94,7 @@ class MyRenderer extends Renderer {
           });
 
           if (this.clientEngine.isOwnedByPlayer(obj)) {
-            this.player_pawn = this.sprites[obj.id];
+            this.player_pawn = window.pawn = this.sprites[obj.id];
           }
         }
     }

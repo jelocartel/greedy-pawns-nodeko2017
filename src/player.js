@@ -43,7 +43,7 @@ export class Player {
     this.entity = new Entity({
       components: [
         new Transform({
-          scale: [0.4, 0.4, 0.4]
+          scale: options.scale
         }),
         new Render({
           vertices: options.shape[0].vertices,
@@ -65,6 +65,7 @@ export class Player {
       // move: this.entity.get_component(Move)
     };
 
+    // console.log('inside cervus', this.options.position);
     this.components.transform.position = [
       this.options.position.x,
       0,
@@ -77,11 +78,11 @@ export class Player {
       this.colors
     );
 
-    this.world.camera_transform.position = [
-      this.options.position.x,
-      this.world.camera_transform.position[1],
-      this.options.position.y - 10
-    ];
+    // this.world.camera_transform.position = [
+    //   this.options.position.x,
+    //   this.world.camera_transform.position[1],
+    //   this.options.position.y - 10
+    // ];
 
     this.world.game.add(this.entity);
 
@@ -126,11 +127,11 @@ export class Player {
       this.lastY = position[2];
     }
 
-    this.light_transform.position = [
-      position[0],
-      position[1] - 0.3,
-      position[2]
-    ];
+    // this.light_transform.position = [
+    //   position[0],
+    //   position[1] - 0.3,
+    //   position[2]
+    // ];
 
     const rounded_x = Math.round(((CONFIG.board.size)/2) - position[0]);
     const rounded_y = Math.round(((CONFIG.board.size)/2) - position[2]);
