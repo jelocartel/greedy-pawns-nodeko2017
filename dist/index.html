@@ -24,12 +24,15 @@
       font-weight: 600;
     }
 
-    .name-input {
+    .timer {
       display: block;
       position: absolute;
       top: 0;
-      width: 100px;
-      left: calc(50% - 50px);
+      width: 50px;
+      left: calc(50% - 25px);
+      text-align: center;
+      font-size: 50px;
+      color: #ccc;
     }
 
     #round-end-popup {
@@ -77,6 +80,7 @@
       <h3>conquest verification...</h3>
     </div>
   </div>
+  <div class="timer"></div>
   <div class="points"></div>
   <script src="index.js"></script>
   <script src="/socket.io/socket.io.js"></script>

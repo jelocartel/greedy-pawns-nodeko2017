@@ -36,6 +36,10 @@ class MyRenderer extends Renderer {
       popup.classList.remove('visible');
     }
     timeUpdate(e) {
+      let timer = document.querySelector('div.timer');
+      if (e >= 0 && e % 60 === 0) {
+        timer.innerHTML = e/60;
+      }
       
     }
 
