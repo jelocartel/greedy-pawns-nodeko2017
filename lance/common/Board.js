@@ -9,7 +9,8 @@ class Board extends DynamicObject {
             board: { type: Serializer.TYPES.STRING },
             size: { type: Serializer.TYPES.INT16 },
             random: { type: Serializer.TYPES.INT16 },
-            stating_field_size: { type: Serializer.TYPES.INT16 }
+            stating_field_size: { type: Serializer.TYPES.INT16 },
+            scoreTable: { type: Serializer.TYPES.STRING },
         }, super.netScheme );
     }
 
@@ -22,6 +23,7 @@ class Board extends DynamicObject {
         this.size = other.size;
         this.random = other.random;
         this.stating_field_size = other.stating_field_size;
+        this.scoreTable = other.scoreTable;
     }
 
     constructor(id, size, stating_field_size, board) {
@@ -32,6 +34,7 @@ class Board extends DynamicObject {
         this.board = (new Array(size)).fill((new Array(size)).fill(0));
         this.board = JSON.stringify(this.board);
         this.random = ~~(Math.random() * 100);
+        this.scoreTable = JSON.stringify({});
     }
 
     setVal(x, y, val) {
@@ -145,6 +148,21 @@ class Board extends DynamicObject {
       let x = ~~(Math.random() * board.length -1);
       let y = ~~(Math.random() * board.length -1);
       return {x, y};
+    }
+
+    get_score(userID, { min_x, min_y, max_x, max_y }) {
+      let tempArray = this.getArray().slice(min_x, max_x+1).map(row => row.slice(min_y, max_y+1));
+      let score = 0;
+      tempArray.forEach(row => {
+        row.forEach(el => {
+          if (el == userID) {
+            score++;
+          }
+        })
+      });
+      let scores = JSON.parse(this.scoreTable);
+      scores[userID] = score;
+      this.scoreTable = JSON.stringify(scores);
     }
 
 }

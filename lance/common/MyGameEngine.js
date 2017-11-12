@@ -38,6 +38,7 @@ class MyGameEngine extends GameEngine {
                     if (objId == 1) continue;
                     //console.log( this.world.objects[objId].getBoundaries());
                     this.world.objects[1].compute_scene(objId, this.world.objects[objId].getBoundaries());
+                    this.world.objects[1].get_score(objId, this.world.objects[objId].getBoundaries());
                 }
             }
         });
