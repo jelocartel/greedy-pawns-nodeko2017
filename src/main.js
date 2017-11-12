@@ -6,7 +6,7 @@ import { model_loader } from 'cervus/core';
 window.cervus = {
   models: [
     model_loader('models/pawn.json'),
-    model_loader('models/coffee.json'),
+    // model_loader('models/coffee.json'),
   ],
   scales: [
     0.4,

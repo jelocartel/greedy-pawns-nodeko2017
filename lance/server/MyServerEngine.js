@@ -21,7 +21,7 @@ class MyServerEngine extends ServerEngine {
         );
         this.gameEngine.addObjectToWorld(board);
 
-        for (let x = 0; x < 2; x++) {
+        for (let x = 0; x < 0; x++) {
           const id = ++this.gameEngine.world.idCount;
           const position = this.gameEngine.world.objects[1].get_random_empty_field();
           const bot = new ActivePlayer(id, position.x, position.y);
