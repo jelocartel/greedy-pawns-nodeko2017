@@ -18,7 +18,7 @@ export class World {
     // this.game.camera.get_component(Move).mouse_controlled = CONFIG.camera.mouse;
 
     this.light_transform = this.game.light.get_component(Transform);
-    // this.game.light.get_component(Light).intensity = 0.5;
+    this.game.light.get_component(Light).intensity = 0.5;
     // this.game.remove(this.game.light);
 
     this.material = new PhongMaterial({

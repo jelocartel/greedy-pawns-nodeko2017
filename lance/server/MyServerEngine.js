@@ -2,6 +2,7 @@
 
 const ServerEngine = require('lance-gg').ServerEngine;
 const Board = require('../common/Board');
+const ActivePlayer = require('../common/ActivePlayer');
 
 class MyServerEngine extends ServerEngine {
 
@@ -19,6 +20,16 @@ class MyServerEngine extends ServerEngine {
           JSON.stringify((new Array(100)).fill((new Array(100)).fill(0)))
         );
         this.gameEngine.addObjectToWorld(board);
+
+        for (let x = 0; x < 12; x++) {
+          const id = ++this.gameEngine.world.idCount;
+          const position = this.gameEngine.world.objects[1].get_random_empty_field();
+          const bot = new ActivePlayer(id, position.x, position.y);
+          this.gameEngine.addObjectToWorld(bot);
+          bot.attachAI(this.gameEngine.world);
+          this.gameEngine.world.objects[1].mark_user_starting_filed(position.x, position.y, id);
+        }
+
         this.gameEngine.initGame();
     }
 

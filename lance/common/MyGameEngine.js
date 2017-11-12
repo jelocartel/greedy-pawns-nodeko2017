@@ -45,7 +45,7 @@ class MyGameEngine extends GameEngine {
         super.processInput(inputData, playerId);
         // get the player paddle tied to the player socket
         let player = this.world.getPlayerObject(playerId);
-        if (player) {
+        if (player && !player.bot) {
             if (inputData.input === 'up') {
                 player.position.y -= this.walking_speed;
             } else if (inputData.input === 'down') {
