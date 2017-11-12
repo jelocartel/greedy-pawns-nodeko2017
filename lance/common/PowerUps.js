@@ -14,7 +14,7 @@ class PowerUps extends DynamicObject {
     }
 
     set_powerup_type() {
-        var type = this.powerUps[Math.random*this.powerUps.length -1];
+        var type = this.powerUps[~~(Math.random*this.powerUps.length -1)];
         return type;
     }
 
