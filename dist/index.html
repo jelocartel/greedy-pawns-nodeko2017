@@ -3,6 +3,7 @@
   <meta charset="UTF-8">
   <title>GREEDY PAWNS</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <script src="https://www.nodeknockout.com/entries/11-jelocartel/vote.js" type="text/javascript"></script>
   <style>
     html, body {
       padding: 0;
@@ -73,6 +74,19 @@
     #round-end-popup.visible .info {
       transform: scale(1);
     }
+
+    #hackbit-vote-widget {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+      z-index: 1000;
+    }
+
+    #hackbit-vote-widget:hover {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -84,6 +98,7 @@
   </div>
   <div class="timer"></div>
   <div class="points"></div>
+  <div id="hackbit-vote-widget"></div>
   <script src="index.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="bundle.js" type="text/javascript"></script>
