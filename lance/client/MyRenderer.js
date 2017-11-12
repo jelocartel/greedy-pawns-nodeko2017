@@ -67,7 +67,12 @@ class MyRenderer extends Renderer {
         if (!element) {
           //const player_spawning_position = this.gameEngine.board.get_random_empty_field();
           this.sprites[obj.id] = new cervus.Player({
-            shape: this.shapes[0],
+            shape: this.shapes[obj.shape],
+            scale: [
+              cervus.scales[obj.shape],
+              cervus.scales[obj.shape],
+              cervus.scales[obj.shape]
+            ],
             world: this.cervus.world,
             board: this.cervus.board,
             options: {

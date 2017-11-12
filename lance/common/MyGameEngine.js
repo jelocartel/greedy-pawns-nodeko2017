@@ -40,7 +40,10 @@ class MyGameEngine extends GameEngine {
 
     registerClasses(serializer) {
         serializer.registerClass(require('../common/ActivePlayer'));
+<<<<<<< HEAD
         serializer.registerClass(Board);
+=======
+>>>>>>> 3455429... new pawns
     }
 
     processInput(inputData, playerId) {
@@ -57,6 +60,19 @@ class MyGameEngine extends GameEngine {
             } else if (inputData.input === 'left') {
                 player.position.x += this.walking_speed;
             }
+
+            // snap to grid - sounds good, doesn't work.
+            // if (player.lastX === player.position.x) {
+            //   player.position.x = Math.round(player.position.x);
+            // } else {
+            //   player.lastX = player.position.x;
+            // }
+            //
+            // if (player.lastY === player.position.y) {
+            //   player.position.y = Math.round(player.position.y);
+            // } else {
+            //   player.lastY = player.position.y;
+            // }
         }
     }
 }
