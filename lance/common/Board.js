@@ -13,8 +13,8 @@ class Board extends DynamicObject {
         }, super.netScheme );
     }
 
-    get bendingMultiple() { return null; }
-    get bendingVelocityMultiple() { return null; }
+    // get bendingMultiple() { return null; }
+    // get bendingVelocityMultiple() { return null; }
 
     syncTo(other) {
         super.syncTo(other);
@@ -25,7 +25,7 @@ class Board extends DynamicObject {
         this.stating_field_size = other.stating_field_size;
     }
 
-    constructor(id, size, stating_field_size) {
+    constructor(id, size, stating_field_size, board) {
         super(id);
         this.class = Board;
         this.size = size;
@@ -37,14 +37,15 @@ class Board extends DynamicObject {
     }
 
     setVal(x, y, val) {
-      x = Math.round(50 - x);
-      y = Math.round(50 - y);
+      if (this.board) {
+        x = Math.round(50 - x);
+        y = Math.round(50 - y);
 
-      let tmp = JSON.parse(this.board);
-      tmp[y][x] = val;
-      this.board = JSON.stringify(tmp);
+        let tmp = JSON.parse(this.board);
+        tmp[x][y] = val;
+        this.board = JSON.stringify(tmp);
+      }
       this.random = ~~(Math.random() * 100);
-      console.log('nowy' + this.random)
       // console.log(this.board);
     }
 
