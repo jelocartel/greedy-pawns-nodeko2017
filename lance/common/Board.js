@@ -139,5 +139,13 @@ class Board extends DynamicObject {
         });
       });
     }
+
+    draw_power_up_position() {
+      let board = this.getArray();
+      let x = ~~(Math.random() * board.length -1);
+      let y = ~~(Math.random() * board.length -1);
+      return {x, y};
+    }
+
 }
 module.exports = Board;

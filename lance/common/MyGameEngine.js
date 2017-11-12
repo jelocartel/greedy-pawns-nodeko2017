@@ -3,6 +3,7 @@ const ActivePlayer = require('./ActivePlayer');
 const Board = require('../common/Board');
 
 const GameEngine = require('lance-gg').GameEngine;
+const PowerUps = require('./PowerUps');
 
 class MyGameEngine extends GameEngine {
 
@@ -44,6 +45,7 @@ class MyGameEngine extends GameEngine {
             this.users[object.id] = object;
 
         });
+
         this.on('server__processInput', (input, playerId) => {
            
             //console.log('chuj' + playerId);
@@ -54,6 +56,7 @@ class MyGameEngine extends GameEngine {
             player.setboundriesXY(player.position.x, player.position.y);
             }
         });
+        this.powerUps = new PowerUps();
     }
 
     initGame() {
@@ -103,6 +106,15 @@ class MyGameEngine extends GameEngine {
             //   player.lastY = player.position.y;
             // }
         }
+    }
+
+    create_power_up(player) {
+        var position = this.board.draw_power_up_position();
+        var improvement = this.powerUps.set_powerup_type();
+        // add power up to board....
+
+        // on user colision with powerUp 
+        //this.powerUps.give_player_powerup(player, improvement);
     }
 }
 
