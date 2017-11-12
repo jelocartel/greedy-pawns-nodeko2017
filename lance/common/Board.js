@@ -46,9 +46,21 @@ class Board extends DynamicObject {
       this.random = ~~(Math.random() * 100);
       // console.log(this.board);
     }
-
+    setuVal(x, y, val) {
+      if (this.board) {
+        let tmp = JSON.parse(this.board);
+        tmp[x][y] = val;
+        this.board = JSON.stringify(tmp);
+      }
+      this.random = ~~(Math.random() * 100);
+    }
     getArray() {
       return JSON.parse(this.board);
+    }
+    logBoard() {
+      JSON.parse(this.board).forEach((val) =>{
+        console.log(val.join(' '));
+      });
     }
 
     mark_user_starting_filed(x, y, user) {
@@ -76,10 +88,14 @@ class Board extends DynamicObject {
     }
 
     fill(scene, x, y, toChange, newValue) {
-      if (!scene[x] || !scene[x][y] || scene[x][y] !== toChange) {
+      //console.log(arguments);
+      toChange = parseInt(toChange);
+      newValue = parseInt(newValue);
+      if (!scene[x] || typeof scene[x][y] === 'undefined' || parseInt(scene[x][y]) != toChange) {
         return;
       }
       scene[x][y] = newValue;
+      // console.log('scene', scene);
       this.fill(scene, x+1, y, toChange, newValue);
       this.fill(scene, x-1, y, toChange, newValue);
       this.fill(scene, x, y+1, toChange, newValue);
@@ -87,24 +103,27 @@ class Board extends DynamicObject {
     }
   
     compute_scene(userID, { min_x, min_y, max_x, max_y }) {
-      // this temparray should be just part of the scene,
-      // calculated from the
-      const tempArray = this.getArray().slice(min_x, max_x+1).map(row => row.slice(min_y, max_y+1));
+      let tempArray = this.getArray().slice(min_x, max_x+1).map(row => row.slice(min_y, max_y+1));
       tempArray.forEach(row => {
         row.push(0);
         row.unshift(0);
       });
+      
   
-      tempArray.push(new Array(scene.length + 2).fill(0));
-      tempArray.unshift(new Array(scene.length + 2).fill(0));
-  
+      //this.logBoard();
+      tempArray.push(new Array(tempArray[0].length ).fill(0));
+      tempArray.unshift(new Array(tempArray[0].length).fill(0));
+      
       tempArray = tempArray.map(arr => {
         return arr.map(el => {
-          return el !== userID ? 0 : userID;
+          return el != userID ? 0 :parseInt(userID);
         })
       });
+
+
   
-      this.fill(tempArray, 0, 0, 0, userID + 1);
+      this.fill(tempArray, 0, 0, 0, parseInt(userID) + 1);
+      
   
       tempArray.pop();
       tempArray.shift();
@@ -114,12 +133,11 @@ class Board extends DynamicObject {
       });
       tempArray.forEach((val, x)=> {
         val.forEach((id, y) => {
-          if (id == (userID + 1)) {
-            this.setVal(min_x + x, min_y + y, userID);
+          if (id === parseInt(userID) || id === 0 ) {
+            this.setuVal(min_x + x, min_y + y, userID);
           }
         });
-      })
-
+      });
     }
 }
 module.exports = Board;

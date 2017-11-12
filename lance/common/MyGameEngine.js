@@ -26,22 +26,33 @@ class MyGameEngine extends GameEngine {
         });
         
         this.on('server__preStep', (step) => {
-            if (step - this.prevStep < 500) {
+            if (step - this.prevStep < 600) {
                 return;
             } else {
                 this.prevStep = step;
-                console.log('Chuj Ci w dupe stara dziwo!');
-                this.world.objects[1];// to jest kurwa Border Panie
+                //console.log('Chuj Ci w dupe stara dziwo!');
+                //this.world.objects[1];// to jest kurwa Border Panie
                 
                 for (let objId of Object.keys(this.world.objects)) {
                     if (objId == 1) continue;
-                    this.world.objects[1].fill(objId, this.world.objects[objId].getBoundaries());
+                    //console.log( this.world.objects[objId].getBoundaries());
+                    this.world.objects[1].compute_scene(objId, this.world.objects[objId].getBoundaries());
                 }
             }
         });
         this.on('objectAdded', (object) => {
             this.users[object.id] = object;
 
+        });
+        this.on('server__processInput', (input, playerId) => {
+           
+            //console.log('chuj' + playerId);
+            
+            let player = this.world.getPlayerObject(playerId);
+            if (player) {
+                console.log(player.position.x + ' ' + player.position.y);
+            player.setboundriesXY(player.position.x, player.position.y);
+            }
         });
     }
 

@@ -32,19 +32,26 @@ class ActivePlayer extends DynamicObject {
         this.lastX = this.lastY = 0;
         this.shape = 0;// ~~(Math.random()*2);
         this.class = ActivePlayer;
+        x = Math.round(50 - x);
+        y = Math.round(50 - y);
         this.boundaries = JSON.stringify({
-            max_y: x,
+            max_y: y,
             min_y: y,
             max_x: x,
-            min_x: y,
+            min_x: x
         })
     }
     setboundriesXY(x,y) {
+        x = Math.round(50 - x);
+        y = Math.round(50 - y);
         let pom = this.getBoundaries();
+        //console.log('dupa ' + this.boundaries);
+        if(!pom) return;
         if (x < pom.min_x) pom.min_x = x;
         if (x > pom.max_x) pom.max_x = x;
         if (y < pom.min_y) pom.min_y = y;
         if (y > pom.max_y) pom.max_y = y;
+        this.boundaries = JSON.stringify(pom);
     }
 
     getBoundaries() {
