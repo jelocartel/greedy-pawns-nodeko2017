@@ -106,19 +106,21 @@ class Board extends DynamicObject {
       this.fill(scene, x, y+1, toChange, newValue);
       this.fill(scene, x, y-1, toChange, newValue);
     }
-  
+
     compute_scene(userID, { min_x, min_y, max_x, max_y }) {
       let tempArray = this.getArray().slice(min_x, max_x+1).map(row => row.slice(min_y, max_y+1));
       tempArray.forEach(row => {
         row.push(0);
         row.unshift(0);
       });
-      
-  
+
+      if (!tempArray) {
+        return;
+      }
       //this.logBoard();
       tempArray.push(new Array(tempArray[0].length ).fill(0));
       tempArray.unshift(new Array(tempArray[0].length).fill(0));
-      
+
       tempArray = tempArray.map(arr => {
         return arr.map(el => {
           return el != userID ? 0 :parseInt(userID);
@@ -126,10 +128,10 @@ class Board extends DynamicObject {
       });
 
 
-  
+
       this.fill(tempArray, 0, 0, 0, parseInt(userID) + 1);
-      
-  
+
+
       tempArray.pop();
       tempArray.shift();
       tempArray.forEach(row => {
