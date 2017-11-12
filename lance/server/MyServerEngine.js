@@ -32,11 +32,10 @@ class MyServerEngine extends ServerEngine {
         }
 
         this.gameEngine.on('server__preStep', (step) => {
-            if (step - this.prevStep < 600) {
+            if ((step - this.prevStep) < 600) {
                 return;
-            } else {
-                this.prevStep = step;
-                this.io.sockets.emit('showBreak',{});
+            } else if((step-this.prevStep) == 600){
+                this.io.sockets.emit('roundEnd',{});
                 //console.log('Chuj Ci w dupe stara dziwo!');
                 //this.world.objects[1];// to jest kurwa Border Panie
                 
@@ -45,8 +44,10 @@ class MyServerEngine extends ServerEngine {
                     //console.log( this.world.objects[objId].getBoundaries());
                     this.gameEngine.world.objects[1].compute_scene(objId, this.gameEngine.world.objects[objId].getBoundaries());
                     this.gameEngine.world.objects[1].get_score(objId, this.gameEngine.world.objects[objId].getBoundaries());
-                }
-                this.io.sockets.emit('hideBreak', {});
+                } 
+            } else if((step-this.prevStep)>650){
+                this.prevStep = step;
+                this.io.sockets.emit('roundStart', {});
             }
         });
 
