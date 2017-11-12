@@ -55,6 +55,10 @@ class MyGameEngine extends GameEngine {
             } else if (inputData.input === 'left') {
                 player.position.x += this.walking_speed;
             }
+            console.log('player [x, y, id]', player.position.x, player.position.y, playerId);
+            console.log(this.world.objects[1])
+            if (!this.world.objects[1].board) return;
+            this.world.objects[1].setVal(player.position.y, player.position.x, playerId);
 
             // snap to grid - sounds good, doesn't work.
             // if (player.lastX === player.position.x) {
