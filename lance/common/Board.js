@@ -8,6 +8,7 @@ class Board extends DynamicObject {
         return Object.assign({
             board: { type: Serializer.TYPES.STRING },
             size: { type: Serializer.TYPES.INT16 },
+            random: { type: Serializer.TYPES.INT16 },
             stating_field_size: { type: Serializer.TYPES.INT16 }
         }, super.netScheme );
     }
@@ -18,7 +19,9 @@ class Board extends DynamicObject {
     syncTo(other) {
         super.syncTo(other);
         this.board = other.board;
+        console.log('this other ' + this.random + ' ' + other.random)
         this.size = other.size;
+        this.random = other.random;
         this.stating_field_size = other.stating_field_size;
     }
 
@@ -29,6 +32,8 @@ class Board extends DynamicObject {
         this.stating_field_size = stating_field_size;
         this.board = (new Array(size)).fill((new Array(size)).fill(0));
         this.board = JSON.stringify(this.board);
+        this.random = ~~(Math.random() * 100);
+        console.log(this.random)
     }
 
     setVal(x, y, val) {
@@ -38,6 +43,8 @@ class Board extends DynamicObject {
       let tmp = JSON.parse(this.board);
       tmp[y][x] = val;
       this.board = JSON.stringify(tmp);
+      this.random = ~~(Math.random() * 100);
+      console.log('nowy' + this.random)
       // console.log(this.board);
     }
 
