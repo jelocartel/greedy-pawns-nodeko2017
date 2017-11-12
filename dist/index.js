@@ -3985,6 +3985,7 @@ class World {
     this.game = new Game({
       width: window.innerWidth,
       height: window.innerHeight,
+      clear_color: '#000000'
     });
 
     this.camera_transform = this.game.camera.get_component(Transform);
