@@ -27,11 +27,13 @@ class MyRenderer extends Renderer {
 
     }
     roundEnd(e) {
-      console.log('elo show');
+      let popup = document.getElementById('round-end-popup');
+      popup.classList.add('visible');
     }
 
     roundStart(e) {
-      console.log('elo hide');
+      let popup = document.getElementById('round-end-popup');
+      popup.classList.remove('visible');
     }
 
     show_points(points) {

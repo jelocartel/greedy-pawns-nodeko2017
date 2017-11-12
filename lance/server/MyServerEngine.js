@@ -36,7 +36,7 @@ class MyServerEngine extends ServerEngine {
                 return;
             } else {
                 this.prevStep = step;
-                this.io.sockets.emit('showBreak',{});
+                this.io.sockets.emit('roundEnd',{});
                 //console.log('Chuj Ci w dupe stara dziwo!');
                 //this.world.objects[1];// to jest kurwa Border Panie
                 
@@ -46,7 +46,7 @@ class MyServerEngine extends ServerEngine {
                     this.gameEngine.world.objects[1].compute_scene(objId, this.gameEngine.world.objects[objId].getBoundaries());
                     this.gameEngine.world.objects[1].get_score(objId, this.gameEngine.world.objects[objId].getBoundaries());
                 }
-                this.io.sockets.emit('hideBreak', {});
+                this.io.sockets.emit('roundStart', {});
             }
         });
 
