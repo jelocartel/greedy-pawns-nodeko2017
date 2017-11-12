@@ -1,6 +1,7 @@
 'use strict';
 
 const ServerEngine = require('lance-gg').ServerEngine;
+const Board = require('../common/Board');
 
 class MyServerEngine extends ServerEngine {
 
@@ -11,6 +12,8 @@ class MyServerEngine extends ServerEngine {
 
     start() {
         super.start();
+        const board = new Board(++this.gameEngine.world.idCount, 100, 3);
+        this.gameEngine.addObjectToWorld(board);
         this.gameEngine.initGame();
     }
 
