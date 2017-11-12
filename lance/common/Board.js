@@ -12,8 +12,8 @@ class Board extends DynamicObject {
         }, super.netScheme );
     }
 
-    get bendingMultiple() { return null; }
-    get bendingVelocityMultiple() { return null; }
+    // get bendingMultiple() { return null; }
+    // get bendingVelocityMultiple() { return null; }
 
     syncTo(other) {
         super.syncTo(other);
@@ -22,13 +22,12 @@ class Board extends DynamicObject {
         this.stating_field_size = other.stating_field_size;
     }
 
-    constructor(id, size, stating_field_size) {
+    constructor(id, size, stating_field_size, board) {
         super(id);
         this.class = Board;
         this.size = size;
         this.stating_field_size = stating_field_size;
-        this.board = (new Array(size)).fill((new Array(size)).fill(0));
-        this.board = JSON.stringify(this.board);
+        this.board = board;
     }
 
     setVal(x, y, val) {

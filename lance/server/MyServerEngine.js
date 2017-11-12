@@ -12,7 +12,12 @@ class MyServerEngine extends ServerEngine {
 
     start() {
         super.start();
-        const board = new Board(++this.gameEngine.world.idCount, 100, 3);
+        const board = new Board(
+          ++this.gameEngine.world.idCount,
+          100,
+          3,
+          JSON.stringify((new Array(100)).fill((new Array(100)).fill(0)))
+        );
         this.gameEngine.addObjectToWorld(board);
         this.gameEngine.initGame();
     }
