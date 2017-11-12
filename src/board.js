@@ -121,12 +121,10 @@ export class Board {
           return;
         }
 
-        if (value !== 0) {
+        if (value !== 0 && sprites[value]) {
           // console.log('1', value);
           this.color_square(final_x, final_y, sprites[value].colors, false);
-        } else {
-          // console.log('2', value);
-        }
+        } 
       });
     });
 
