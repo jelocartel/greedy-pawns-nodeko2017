@@ -32,12 +32,14 @@ class Board extends DynamicObject {
     }
 
     setVal(x, y, val) {
-      x = Math.round(50 - x);
-      y = Math.round(50 - y);
+      if (this.board) {
+        x = Math.round(50 - x);
+        y = Math.round(50 - y);
 
-      let tmp = JSON.parse(this.board);
-      tmp[y][x] = val;
-      this.board = JSON.stringify(tmp);
+        let tmp = JSON.parse(this.board);
+        tmp[x][y] = val;
+        this.board = JSON.stringify(tmp);
+      }
       // console.log(this.board);
     }
 

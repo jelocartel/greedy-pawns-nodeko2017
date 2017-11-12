@@ -24,7 +24,7 @@ class ActivePlayer extends DynamicObject {
     constructor(id, x, y) {
       // console.log('active player', x, y, id);
         super(id);
-        this.position.set(y, x);
+        this.position.set(x, y);
         this.playerId = id;
         this.color = '#'+Math.floor(Math.random()*16777215).toString(16);
         this.lastX = this.lastY = 0;
