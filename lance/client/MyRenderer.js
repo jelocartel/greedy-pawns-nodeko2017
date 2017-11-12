@@ -14,7 +14,6 @@ class MyRenderer extends Renderer {
     }
 
     init() {
-      console.log('INIT!');
       return Promise.all(window.cervus.models).then(models => {
         this.shapes = models;
         this.cervus.world = new cervus.World();
