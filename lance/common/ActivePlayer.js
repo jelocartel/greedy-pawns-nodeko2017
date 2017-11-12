@@ -59,9 +59,62 @@ class ActivePlayer extends DynamicObject {
     }
 
     onAddToWorld(gameEngine) {
-        if (gameEngine.renderer) {
-            gameEngine.renderer.addSprite(this, 'activeplayer');
+      this.gameEngine = gameEngine;
+      if (gameEngine.renderer) {
+          gameEngine.renderer.addSprite(this, 'activeplayer');
+      }
+    }
+
+    attachAI(world) {
+      this.bot = true;
+      this.dir1 = Math.random() > 0.5 ? 1 : -1;
+      this.dir2 = this.dir1 * -1;
+      this.axis1 = Math.random() > 0.5 ? 'x' : 'y';
+      this.axis2 = this.axis1 === 'x' ? 'y' : 'x';
+      this.has_two_axes = Math.random() > 0.5;
+      this.chane_on_step = (~~((10 + Math.random() * 500)/100)) * 100;
+      this.margin = Math.random() * 3;
+      this.gameEngine.on('preStep', (e) => {
+        // this.position.y -= Math.cos(e);
+        // this.position.x -= Math.sin(e);
+        if (this.bot && e.step%10 === 0) {
+
+          this.position[this.axis1] += 0.589 * this.dir1;
+          if (this.has_two_axes) {
+            // console.log(this.axis2, this.dir2, this.axis1, this.dir1);
+            this.position[this.axis2] += 0.589 * this.dir2;
+          }
+
+          if ((e.step%this.chane_on_step === 0) ||
+           (this.position.x > 58 - this.margin &&
+             ((this.axis1 === 'x' && this.dir1 === 1) ||
+             (this.axis2 === 'x' && this.dir2 === 1)
+              )) ||
+           (this.position.x < -58 + this.margin &&
+             ((this.axis1 === 'x' && this.dir1 === -1) ||
+             (this.axis2 === 'x' && this.dir2 === -1)
+              )) ||
+           (this.position.y > 58 - this.margin &&
+             ((this.axis1 === 'y' && this.dir1 === 1) ||
+             (this.axis2 === 'y' && this.dir2 === 1)
+              )) ||
+           (this.position.y < -58 + this.margin &&
+             ((this.axis1 === 'y' && this.dir1 === -1) ||
+             (this.axis2 === 'y' && this.dir2 === -1)
+              ))) {
+                this.margin = Math.random() * 3;
+                this.dir1 = Math.random() > 0.5 ? 1 : -1;
+                this.dir2 = this.dir1 * -1;
+                this.axis1 = Math.random() > 0.5 ? 'x' : 'y';
+                this.axis2 = this.axis1 === 'x' ? 'y' : 'x';
+                this.has_two_axes = Math.random() > 0.5;
+                this.chane_on_step = (~~((10 + Math.random() * 500)/100)) * 100;
+          }
+          // this.position.y -= 0.1 - Math.random() * 0.2;
+
+          world.objects[1].setVal(this.position.x, this.position.y, this.playerId);
         }
+      });
     }
 }
 module.exports = ActivePlayer;

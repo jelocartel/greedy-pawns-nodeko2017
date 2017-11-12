@@ -37,11 +37,14 @@ class MyRenderer extends Renderer {
               this.gameEngine.world.objects[objId].position.y
             ];
 
-            this.sprites[objId].light_transform.position = [
-              this.gameEngine.world.objects[objId].position.x,
-              - 0.3,
-              this.gameEngine.world.objects[objId].position.y
-            ];
+            if (this.sprites[objId].light) {
+              this.sprites[objId].light_transform.position = [
+                this.gameEngine.world.objects[objId].position.x,
+                - 0.3,
+                this.gameEngine.world.objects[objId].position.y
+              ];
+            }
+
           }
         }
 
@@ -78,6 +81,7 @@ class MyRenderer extends Renderer {
         if (!element) {
           // console.log(obj.position);
           //const player_spawning_position = this.gameEngine.board.get_random_empty_field();
+          const isPlayer = this.clientEngine.isOwnedByPlayer(obj);
           this.sprites[obj.id] = new cervus.Player({
             shape: this.shapes[obj.shape],
             scale: [
@@ -87,13 +91,14 @@ class MyRenderer extends Renderer {
             ],
             world: this.cervus.world,
             board: this.cervus.board,
+            do_light: isPlayer,
             options: {
               position: obj.position,
               base_color: obj.color
             }
           });
 
-          if (this.clientEngine.isOwnedByPlayer(obj)) {
+          if (isPlayer) {
             this.player_pawn = window.pawn = this.sprites[obj.id];
           }
         }
