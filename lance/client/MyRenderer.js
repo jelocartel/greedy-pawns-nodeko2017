@@ -35,6 +35,9 @@ class MyRenderer extends Renderer {
       let popup = document.getElementById('round-end-popup');
       popup.classList.remove('visible');
     }
+    timeUpdate(e) {
+      
+    }
 
     show_points(points) {
       if (!points) {

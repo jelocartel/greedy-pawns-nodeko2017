@@ -32,6 +32,7 @@ class MyServerEngine extends ServerEngine {
         }
 
         this.gameEngine.on('server__preStep', (step) => {
+            if((600+ this.prevStep -step)%10 === 0) this.io.sockets.emit('timeUpdate', 600 + this.prevStep - step);
             if ((step - this.prevStep) < 600) {
                 return;
             } else if((step-this.prevStep) == 600){

@@ -60,6 +60,9 @@ class MyClientEngine extends ClientEngine {
                 this.renderer.roundStart(e);
                 this.lock = false
             });
+            this.socket.on('timeUpdate', (e) => {
+                this.renderer.timeUpdate(e);
+            });
         });
     }
 
