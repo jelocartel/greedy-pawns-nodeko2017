@@ -19,7 +19,6 @@ class Board extends DynamicObject {
     syncTo(other) {
         super.syncTo(other);
         this.board = other.board;
-        console.log('this other ' + this.random + ' ' + other.random)
         this.size = other.size;
         this.random = other.random;
         this.stating_field_size = other.stating_field_size;
@@ -33,7 +32,6 @@ class Board extends DynamicObject {
         this.board = (new Array(size)).fill((new Array(size)).fill(0));
         this.board = JSON.stringify(this.board);
         this.random = ~~(Math.random() * 100);
-        console.log(this.random)
     }
 
     setVal(x, y, val) {
