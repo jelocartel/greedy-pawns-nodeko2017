@@ -43,7 +43,7 @@ class MyRenderer extends Renderer {
         }
         output += `
           <div class="player" style="color:${this.gameEngine.world.objects[player].color}">
-          ${player} - ${points[player]}
+          ${this.gameEngine.world.objects[player].name} - ${points[player]}
           </div>
           `;
       });
