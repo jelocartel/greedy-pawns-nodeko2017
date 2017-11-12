@@ -114,7 +114,7 @@ class Board extends DynamicObject {
         row.unshift(0);
       });
 
-      if (!tempArray) {
+      if (!tempArray || !tempArray[0]) {
         return;
       }
       //this.logBoard();

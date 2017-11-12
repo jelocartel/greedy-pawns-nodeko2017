@@ -31,9 +31,52 @@
       width: 100px;
       left: calc(50% - 50px);
     }
+
+    #round-end-popup {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 9;
+    }
+
+    #round-end-popup.visible {
+      opacity: 1;
+    }
+
+    #round-end-popup .info {
+      display: block;
+      position: absolute;
+      width: 40%;
+      height: 40%;
+      top: 30%;
+      left: 30%;
+      background-color: #fff;
+      border-radius: 5%;
+      text-align: center;
+      transform: scale(0);
+      transition: transform 0.2s;
+    }
+
+    #round-end-popup .info h1 {
+      margin: 75px;
+    }
+
+    #round-end-popup.visible .info {
+      transform: scale(1);
+    }
   </style>
 </head>
 <body>
+  <div id='round-end-popup'>
+    <div class='info'>
+      <h1>Round End</h1>
+      <h3>conquest verification...</h3>
+    </div>
+  </div>
   <div class="points"></div>
   <input class='name-input' type='text'></input>
   <script src="index.js"></script>
