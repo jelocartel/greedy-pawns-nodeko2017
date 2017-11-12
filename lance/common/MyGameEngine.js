@@ -25,7 +25,7 @@ class MyGameEngine extends GameEngine {
             this.world.objects[1].mark_user_starting_filed(position.x, position.y, id);
             console.log('boundrisy do min i maxa dodaj kurwa')
         });
-        
+
         this.on('server__preStep', (step) => {
             if (step - this.prevStep < 600) {
                 return;
@@ -33,7 +33,7 @@ class MyGameEngine extends GameEngine {
                 this.prevStep = step;
                 //console.log('Chuj Ci w dupe stara dziwo!');
                 //this.world.objects[1];// to jest kurwa Border Panie
-                
+
                 for (let objId of Object.keys(this.world.objects)) {
                     if (objId == 1) continue;
                     //console.log( this.world.objects[objId].getBoundaries());
@@ -48,9 +48,9 @@ class MyGameEngine extends GameEngine {
         });
 
         this.on('server__processInput', (input, playerId) => {
-           
+
             //console.log('chuj' + playerId);
-            
+
             let player = this.world.getPlayerObject(playerId);
             if (player) {
                 console.log(player.position.x + ' ' + player.position.y);
@@ -79,13 +79,13 @@ class MyGameEngine extends GameEngine {
         // get the player paddle tied to the player socket
         let player = this.world.getPlayerObject(playerId);
         if (player && !player.bot) {
-            if (inputData.input === 'up') {
+            if (inputData.input === 'up' && player.position.y > -49) {
                 player.position.y -= this.walking_speed;
-            } else if (inputData.input === 'down') {
+            } else if (inputData.input === 'down' && player.position.y < 49) {
                 player.position.y += this.walking_speed;
-            } else if (inputData.input === 'right') {
+            } else if (inputData.input === 'right' && player.position.x > -49) {
                 player.position.x -= this.walking_speed;
-            } else if (inputData.input === 'left') {
+            } else if (inputData.input === 'left' && player.position.x < 49) {
                 player.position.x += this.walking_speed;
             }
             // console.log('player [x, y, id]', player.position.x, player.position.y, playerId);
@@ -114,7 +114,7 @@ class MyGameEngine extends GameEngine {
         var improvement = this.powerUps.set_powerup_type();
         // add power up to board....
 
-        // on user colision with powerUp 
+        // on user colision with powerUp
         //this.powerUps.give_player_powerup(player, improvement);
     }
 }
