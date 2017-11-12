@@ -136,13 +136,16 @@ class Board extends DynamicObject {
         row.shift();
         row.pop();
       });
+      let board = this.getArray()
       tempArray.forEach((val, x)=> {
         val.forEach((id, y) => {
           if (id === parseInt(userID) || id === 0 ) {
-            this.setuVal(min_x + x, min_y + y, userID);
+            board[min_x + x][min_y+ y] = userID;
+            //this.setuVal(min_x + x, min_y + y, userID);
           }
         });
       });
+      this.board = JSON.stringify(board);
     }
 
     draw_power_up_position() {

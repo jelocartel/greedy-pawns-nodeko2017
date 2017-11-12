@@ -10,7 +10,8 @@ class ActivePlayer extends DynamicObject {
             boundaries: { type: Serializer.TYPES.STRING },
             lastX: { type: Serializer.TYPES.FLOAT32 },
             lastY: { type: Serializer.TYPES.FLOAT32 },
-            shape: { type: Serializer.TYPES.UINT8 }
+            shape: { type: Serializer.TYPES.UINT8 },
+            name: { type: Serializer.TYPES.STRING },
         }, super.netScheme );
     }
 
@@ -20,7 +21,8 @@ class ActivePlayer extends DynamicObject {
         this.lastX = other.lastX;
         this.lastY = other.lastY;
         this.shape = other.shape;
-        this.boundaries = other.boundaries
+        this.boundaries = other.boundaries;
+        this.name = other.name;
     }
 
     constructor(id, x, y) {
@@ -39,7 +41,10 @@ class ActivePlayer extends DynamicObject {
             min_y: y,
             max_x: x,
             min_x: x
-        })
+        });
+        // this.name_div = document.querySelector('input.name-input');
+        // this.name = this.name_div.value() || 'Guest-' + Math.floor(Math.random()*7).toString(16);
+        this.name = 'Guest-' + Math.floor(Math.random()*10000);
     }
     setboundriesXY(x,y) {
         x = Math.round(50 - x);

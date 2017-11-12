@@ -5,6 +5,7 @@ class MyClientEngine extends ClientEngine {
 
     constructor(gameEngine, options) {
         super(gameEngine, options, MyRenderer);
+        this.lock = false;
 
         this.gameEngine.on('client__preStep', this.preStep.bind(this));
 
@@ -25,7 +26,7 @@ class MyClientEngine extends ClientEngine {
         };
 
         let that = this;
-        document.onkeydown = (e) => { that.onKeyChange(e, true); };
+        document.onkeydown = (e) => { that.onKeyChange(e, !that.lock); };
         document.onkeyup = (e) => { that.onKeyChange(e, false); };
     }
 
@@ -48,6 +49,20 @@ class MyClientEngine extends ClientEngine {
             this.sendInput('right', { movement: true });
         }
     }
+    // extend ClientEngine connect to add own events
+    connect() {
+        return super.connect().then(() => {
+            this.socket.on('roundEnd', (e) => {
+                this.renderer.roundEnd(e);
+                this.lock = true;
+            });
+            this.socket.on('roundStart', (e) => {
+                this.renderer.roundStart(e);
+                this.lock = false
+            });
+        });
+    }
+
 
     onKeyChange(e, isDown) {
         e = e || window.event;
