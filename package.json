@@ -31,7 +31,7 @@
     "dev": "./node_modules/rollup/bin/rollup -c -w",
     "start": "node lance/main.js",
     "postinstall": "browserify lance/client/clientMain.js -i nodejs-physijs -o dist/bundle.js ",
-    "build": "./node_modules/rollup/bin/rollup -c; browserify lance/client/clientMain.js -i nodejs-physijs -o dist/bundle.js ",
+    "build": "./node_modules/rollup/bin/rollup -c rollup.config.bundle.js; browserify lance/client/clientMain.js -i nodejs-physijs -o dist/bundle.js ",
     "watchify": "watchify lance/client/clientMain.js -i nodejs-physijs -o dist/bundle.js -v -d",
     "clear": "rm -rf *.trace",
     "do-shit": "npm run clear; ./node_modules/rollup/bin/rollup -c rollup.config.bundle.js; npm run build; npm run start"
