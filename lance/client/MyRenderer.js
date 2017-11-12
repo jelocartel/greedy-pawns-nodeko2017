@@ -76,6 +76,7 @@ class MyRenderer extends Renderer {
         const element = this.sprites[obj.id];
 
         if (!element) {
+          // console.log(obj.position);
           //const player_spawning_position = this.gameEngine.board.get_random_empty_field();
           this.sprites[obj.id] = new cervus.Player({
             shape: this.shapes[obj.shape],
@@ -93,7 +94,7 @@ class MyRenderer extends Renderer {
           });
 
           if (this.clientEngine.isOwnedByPlayer(obj)) {
-            this.player_pawn = this.sprites[obj.id];
+            this.player_pawn = window.pawn = this.sprites[obj.id];
           }
         }
     }

@@ -34,6 +34,7 @@ class Board extends DynamicObject {
     setVal(x, y, val) {
       x = Math.round(50 - x);
       y = Math.round(50 - y);
+
       let tmp = JSON.parse(this.board);
       tmp[y][x] = val;
       this.board = JSON.stringify(tmp);
@@ -45,7 +46,7 @@ class Board extends DynamicObject {
     }
 
     mark_user_starting_filed(x, y, user) {
-      console.log('user-starting', x, y);
+      // console.log('user-starting', x, y, user);
       let half_size = ~~(this.stating_field_size/2);
      for (let i = x - half_size; i < x + half_size + 1; i++) {
        for (let j = y - half_size; j < y + half_size + 1; j++) {

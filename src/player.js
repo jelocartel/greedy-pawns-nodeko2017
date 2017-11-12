@@ -65,6 +65,7 @@ export class Player {
       // move: this.entity.get_component(Move)
     };
 
+    // console.log('inside cervus', this.options.position);
     this.components.transform.position = [
       this.options.position.x,
       0,
