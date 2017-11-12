@@ -40,8 +40,10 @@ class Board extends DynamicObject {
         y = Math.round(50 - y);
 
         let tmp = JSON.parse(this.board);
-        tmp[x][y] = val;
-        this.board = JSON.stringify(tmp);
+        if (tmp && tmp[x]) {
+          tmp[x][y] = val;
+          this.board = JSON.stringify(tmp);
+        }
       }
       this.random = ~~(Math.random() * 100);
       // console.log(this.board);

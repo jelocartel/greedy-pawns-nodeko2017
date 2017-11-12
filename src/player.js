@@ -22,10 +22,9 @@ export class Player {
     this.base_color = this.options.base_color;
     this.colors = [
       hex_to_rgb(this.base_color),
-      lighter_color(hex_to_rgb(this.base_color), -0.6)
+      lighter_color(hex_to_rgb(this.base_color), -0.2)
     ];
 
-    console.log('Michał, kurwa, napraw mnie', this.colors);
     this.world = options.world;
     this.board = options.board;
 
@@ -86,18 +85,21 @@ export class Player {
 
     this.world.game.add(this.entity);
 
-    this.light = new Entity({
-      components: [
-        new Transform(),
-        new Light({
-          color: this.base_color,
-          intensity: 0.01
-        })
-      ]
-    });
-    this.light_transform = this.light.get_component(Transform);
 
-    this.world.game.add(this.light);
+    if (options.do_light) {
+      this.light = new Entity({
+        components: [
+          new Transform(),
+          new Light({
+            color: this.base_color,
+            intensity: 0.01
+          })
+        ]
+      });
+      this.light_transform = this.light.get_component(Transform);
+
+      this.world.game.add(this.light);
+    }
   }
 
   end_round_calculations() {
