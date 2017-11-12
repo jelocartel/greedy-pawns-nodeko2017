@@ -26,22 +26,6 @@ class MyGameEngine extends GameEngine {
             console.log('boundrisy do min i maxa dodaj kurwa')
         });
         
-        this.on('server__preStep', (step) => {
-            if (step - this.prevStep < 600) {
-                return;
-            } else {
-                this.prevStep = step;
-                //console.log('Chuj Ci w dupe stara dziwo!');
-                //this.world.objects[1];// to jest kurwa Border Panie
-                
-                for (let objId of Object.keys(this.world.objects)) {
-                    if (objId == 1) continue;
-                    //console.log( this.world.objects[objId].getBoundaries());
-                    this.world.objects[1].compute_scene(objId, this.world.objects[objId].getBoundaries());
-                    this.world.objects[1].get_score(objId, this.world.objects[objId].getBoundaries());
-                }
-            }
-        });
         this.on('objectAdded', (object) => {
             this.users[object.id] = object;
 
@@ -53,8 +37,7 @@ class MyGameEngine extends GameEngine {
             
             let player = this.world.getPlayerObject(playerId);
             if (player) {
-                console.log(player.position.x + ' ' + player.position.y);
-            player.setboundriesXY(player.position.x, player.position.y);
+                player.setboundriesXY(player.position.x, player.position.y);
             }
         });
         this.powerUps = new PowerUps();

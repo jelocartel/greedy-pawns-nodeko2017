@@ -9,6 +9,7 @@ class MyServerEngine extends ServerEngine {
     constructor(io, gameEngine, inputOptions) {
         super(io, gameEngine, inputOptions);
         this.players = {};
+        this.prevStep = 0;
     }
 
     start() {
@@ -29,6 +30,25 @@ class MyServerEngine extends ServerEngine {
           bot.attachAI(this.gameEngine.world);
           this.gameEngine.world.objects[1].mark_user_starting_filed(position.x, position.y, id);
         }
+
+        this.gameEngine.on('server__preStep', (step) => {
+            if (step - this.prevStep < 600) {
+                return;
+            } else {
+                this.prevStep = step;
+                this.io.sockets.emit('showBreak',{});
+                //console.log('Chuj Ci w dupe stara dziwo!');
+                //this.world.objects[1];// to jest kurwa Border Panie
+                
+                for (let objId of Object.keys(this.gameEngine.world.objects)) {
+                    if (objId == 1) continue;
+                    //console.log( this.world.objects[objId].getBoundaries());
+                    this.gameEngine.world.objects[1].compute_scene(objId, this.gameEngine.world.objects[objId].getBoundaries());
+                    this.gameEngine.world.objects[1].get_score(objId, this.gameEngine.world.objects[objId].getBoundaries());
+                }
+                this.io.sockets.emit('hideBreak', {});
+            }
+        });
 
         this.gameEngine.initGame();
     }

@@ -26,12 +26,19 @@ class MyRenderer extends Renderer {
       });
 
     }
+    roundEnd(e) {
+      console.log('elo show');
+    }
+
+    roundStart(e) {
+      console.log('elo hide');
+    }
 
     show_points(points) {
       if (!points) {
         return;
       }
-
+      
       points = JSON.parse(points);
       this.points_div.innerHTML = '';
       let output = '';
