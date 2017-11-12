@@ -43,7 +43,7 @@ class MyRenderer extends Renderer {
       if (!points) {
         return;
       }
-      
+
       points = JSON.parse(points);
       this.points_div.innerHTML = '';
       let output = '';
@@ -55,7 +55,7 @@ class MyRenderer extends Renderer {
         }
         output += `
           <div class="player" style="color:${this.gameEngine.world.objects[player].color}">
-          ${this.gameEngine.world.objects[player].name} - ${points[player]}
+          ${parseInt(this.clientEngine.playerId) === parseInt(player) ? 'YOU' : this.gameEngine.world.objects[player].name} - ${points[player]}
           </div>
           `;
       });
